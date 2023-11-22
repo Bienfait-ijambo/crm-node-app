@@ -58,7 +58,7 @@ export class JwtToken {
     try {
       const accessToken = token.split(" ")[1];
 
-     await  verify(accessToken, JwtToken.privateKey, (error, payload) => {
+       verify(accessToken, JwtToken.privateKey, (error, payload) => {
         if (error){
           throw new Error('Unauthorized')
         } 
@@ -76,7 +76,7 @@ export class JwtToken {
       const token = req.headers?.authorization
       const accessToken = token.split(" ")[1];
 
-      await  verify(accessToken, JwtToken.privateKey, (error, payload) => {
+        verify(accessToken, JwtToken.privateKey, (error, payload) => {
         if (error){
           throw new Error('Unauthorize')
         }else{
