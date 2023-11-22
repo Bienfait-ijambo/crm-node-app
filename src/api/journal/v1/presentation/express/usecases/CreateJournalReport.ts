@@ -19,10 +19,7 @@ export class CreateJournalReport extends BuildJournalArray {
 
       const {input,journalName} = this.getInput(query);
 
-      //   const dto=new CreateGetBalanceInput(input)
-
     
-
       const [journalData,htmlContent,headerData] = await Promise.all([
         this.getJournalData(input),
         getHtmlContent(getViewPath("journal.html")),

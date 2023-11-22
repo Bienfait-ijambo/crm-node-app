@@ -42,9 +42,13 @@ export class CreateBilanPdf {
         CreateBilanPdf.getUserEnterpiseInfo(input.userId)
       ])
 
+      const [actifMasses,passifMasses]=await Promise.all([
+        getActifMasses(masses),
+        getPassifMasses(masses)
+      ])
       const data = {
-        actifMasses: getActifMasses(masses),
-        passifMasses: getPassifMasses(masses),
+        actifMasses: actifMasses,
+        passifMasses: passifMasses,
         headerData:headerData,
         date:input
       };

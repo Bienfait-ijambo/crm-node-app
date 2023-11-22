@@ -14,6 +14,7 @@ import { AggregateAccountAmount } from "../../entities/AggregateAccountAmount";
 import { ServicePayment } from "../../entities/ServicePayment";
 import {  clientPages } from "../../entities/ClientPages";
 import { EnterpriseInfo } from "../../entities/EnterpriseInfo";
+import { Tfr } from "../../entities/trf";
 
 const mysqlConnection: DataSourceOptions = {
   type: "mysql",
@@ -22,7 +23,6 @@ const mysqlConnection: DataSourceOptions = {
   username: process.env.DB_USER,
   password: process.env.DB_PWD,
   database: process.env.DB_NAME,
-  // synchronize: false,
   synchronize: process.env.NODE_ENV === 'production' ? false : true,
   logging: false,
   entities: [
@@ -37,6 +37,7 @@ const mysqlConnection: DataSourceOptions = {
     ProjectPayment,
     Service,
     AggregateAccountAmount,
+    Tfr,
     ServicePayment,clientPages,EnterpriseInfo
   ],
   subscribers: [],
