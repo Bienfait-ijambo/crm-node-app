@@ -14,29 +14,33 @@ import { CreateBilanInput } from "../../../domain-model/dto/CreateBilanInput";
 
 export class CreateBilanPdf {
 
+  private static createInputFromRequest(req: Request){
+    const startDate = req.query?.startDate;
+    const enDate = req.query?.endDate;
+    const page = req.query?.page as string
+    const userId = req.query?.userId as string
+
+    return  {
+      page: parseInt(page),
+      userId: parseInt(userId),
+      startDate: startDate,
+      endDate: enDate,
+    } as IBilanInput;
+
+  }
+
   static async getPdf(req: Request, res: Response, next: NextFunction) {
     try {
-      const startDate = req.query.startDate;
-      const enDate = req.query.endDate;
-      const page: any = req.query.page;
-      const userId: any = req.query.userId;
-
-      const input = {
-        page: parseInt(page),
-        userId: parseInt(userId.toString()),
-        startDate: startDate,
-        endDate: enDate,
-      } as IBilanInput;
-
+     
+      const input=CreateBilanPdf.createInputFromRequest(req)
      
       const dto=new CreateBilanInput(input)
-      // const outPut
-    
-      const masses = await CreateBilanPdf.getBilanData(dto.getInput());
-
-      const htmlContent = await getHtmlContent(getViewPath("bilan.html"));
-
-      const headerData=await CreateBilanPdf.getUserEnterpiseInfo(input.userId)
+  
+      const [masses,htmlContent,headerData]=await Promise.all([
+        CreateBilanPdf.getBilanData(dto.getInput()),
+        getHtmlContent(getViewPath("bilan.html")),
+        CreateBilanPdf.getUserEnterpiseInfo(input.userId)
+      ])
 
       const data = {
         actifMasses: getActifMasses(masses),

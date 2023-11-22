@@ -1,10 +1,6 @@
 import { enumMassType } from "../../../../../../entities/Mass";
 
-/**
- * 
- * @param arr 
- * get actif data
- */
+
 export function getActifMasses(arr: any) {
     const actif = arr.filter(
       (item: any) =>
@@ -16,11 +12,7 @@ export function getActifMasses(arr: any) {
     return createSoldInBilan(actif);
   }
   
-  /**
-   * 
-   * @param arr 
-   * @returns 
-   */
+
   export function getPassifMasses(arr: any) {
     const passif = arr.filter(
       (item: any) =>
