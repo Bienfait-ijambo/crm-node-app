@@ -1,0 +1,36 @@
+input UpdateJournalInput {
+  id: ID!
+  accountId: Int!
+  description: String!
+  projectId: Int!
+  amount: String!
+  transactionType: Int!
+  sold: String!
+}
+
+input CreateJournalInput {
+  accountId: Int!
+  massId: Int!
+  accountType:Int!
+  description: String!
+  createdAt: String!
+  draw:Boolean!
+  projectId: Int!
+  serviceId: Int!
+  amount: String!
+  transactionType: Int!
+  userId: Int!
+}
+
+
+
+type CreateJournalResponse {
+  id: ID!
+  accountId: Int!
+  description: String!
+}
+
+type Mutation {
+  recordTransaction(input: [CreateJournalInput!]!): CreateJournalResponse!
+  editTransaction(input: UpdateJournalInput!): CreateJournalResponse!
+}

@@ -1,0 +1,51 @@
+
+
+
+type Actions {
+  id: Int!
+  name: String!
+}
+
+type Userpermissions {
+  id: Int!
+  name:String!
+  userId:Int!
+  actions: [Actions!]!
+}
+
+
+type User{
+    id:Int!
+    userName:String
+    email:String!
+    telephone:String
+    image:String
+    role:String!
+    userCode:String!
+    userIsBlocked:Boolean!
+    userpermissions:[Userpermissions!]
+}
+
+type GetAllUsersResponse{
+   users:[User!]!
+   count:Int!
+   totalPages:Int!
+}
+
+
+
+
+
+
+type Query {
+  users(userName:String!,userCode:String!,page:Int!): GetAllUsersResponse!
+  getSubscribers(userCode:String!): GetAllUsersResponse!
+  getSubscribeUsersByCode(userCode:String!): GetAllUsersResponse!
+  user(id: ID!): User!
+  
+}
+
+
+
+
+

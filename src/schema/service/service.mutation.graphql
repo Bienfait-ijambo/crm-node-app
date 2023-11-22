@@ -1,0 +1,25 @@
+input CreateServiceInput{
+    name:String!
+    userId:Int!
+}
+
+
+input UpdateServiceInput{
+    id:Int!
+    name:String!
+    userId:Int!
+
+   
+}
+
+type CreateServiceResponse{
+    id:Int!
+    name:String!
+    gainAmount:String!
+}
+
+type Mutation{
+    createService(input:CreateServiceInput!):CreateServiceResponse!
+    updateService(input:UpdateServiceInput!):CreateServiceResponse!
+
+}

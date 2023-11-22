@@ -1,0 +1,8 @@
+type CreateRoleResponse{
+    name:String!
+}
+
+
+type Query{
+    roles:[CreateRoleResponse!]!
+}

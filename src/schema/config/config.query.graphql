@@ -1,0 +1,17 @@
+
+
+type ActionResponse{
+    id:Int!
+    name:String!
+    status:Boolean!
+}
+
+type CreatePageResponse{
+    id:Int
+    name:String
+    displayName:String!
+    actions:[ActionResponse]
+}
+type Query{
+    pages:[CreatePageResponse!]!
+}

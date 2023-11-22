@@ -1,0 +1,9 @@
+type CreateMassResponse{
+  id:Int!
+  name: String!
+}
+
+
+type Query{
+    masses:[CreateMassResponse!]
+}

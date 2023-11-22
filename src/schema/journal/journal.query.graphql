@@ -1,0 +1,172 @@
+
+
+input CreateJournalSearchInput{
+    accountName:String!
+    projectId:Int!
+    transactionType:Int!
+    date:String!
+    userId:Int!
+    page:Int!
+}
+
+type accountType{
+ id:Int!
+ name:String!
+}
+
+type mass{
+ id:Int!
+ name:String!
+}
+
+type account{
+    id:Int!
+    name:String!
+    code:String!
+    accountType:accountType!
+    mass:mass!
+}
+
+type partner{
+    id:Int!
+    name:String!
+    email:String!
+    telephone:String!
+}
+
+type project{
+    id:Int!
+    designation:String!
+    cost:String!
+    partner:partner!
+}
+
+enum EnumTransactionType { 
+    DEBIT
+    CREDIT
+}
+
+type Journals{
+     id:Int!
+     description:String!
+     amount:String!
+     transactionType:Int!
+     income:String!
+     expense:String!
+     draw:Boolean!
+     transactionCode:String!
+     createdAt:Date!
+     account:account!
+}
+
+type Balance{
+    accountId:Int!
+    userId:Int!
+    accountName:String!
+    accountCode:String!
+    accountType:String!
+    massName:String!
+    totalAmount:Float!
+    totalIncome: Float!,
+    totalExpense: Float!
+}
+
+type CreateBalanceResponse{
+    journals:[Balance!]!
+    count: Int!
+    totalPages: Int!
+}
+
+
+
+type CreateJournalResponse{
+    journals:[Journals!]!
+    count: Int!
+    totalPages: Int!
+}
+
+
+type CreateGeneralLedgerResponse{
+    accountName:String!
+    accountCode:String!
+    totalAmount:Float!
+    transactionType:Int!
+    accountId:Int!
+}
+
+input CreateGeneralLedgerInput{
+    accountName:String!
+    transactionType:Int!
+    projectId:Int!
+    accountId:[Int!]!
+    startDate:String!
+    endDate:String!
+    userId:Int!
+    page:Int!
+}
+
+
+input CreateBalanceInput{
+    page:Int!
+    projectId:Int!
+    startDate:String!
+    endDate:String!
+    userId:Int!
+}
+
+
+input CreateExpenseVsEarningInput{
+    createdAt:String!
+    userId:Int!
+} 
+
+type CreateExpenseVsEarningResponse{
+    totalExpenses:String!
+    totalEarnings:String!
+}
+
+
+input CreateTransactionDetailByAccountInput{
+    projectId:Int!
+    serviceId:Int!
+    userId:Int!
+    startDate:String!
+    endDate:String!
+    accountId:Int!
+    page:Int!
+}
+
+
+type SingleAccountOperations{
+   id:Int!
+    amount:String!
+    transactionType:Int!
+    description:String!
+    createdAt:Date!
+}
+
+type CreateAccountDetailByAccount{
+    transactions:[SingleAccountOperations!]!
+    count: Int!
+    totalPages: Int!
+}
+input CreatePreviousTreasuryOp{
+    userId: Int!
+    currDate:Date!
+}
+
+type CreatePreviousTreasuryOpResponse{
+    totalCreditAmount:String!
+    totalDebitAmount:String!
+    createdAt:Date!
+}
+type Query{
+    journals(input:CreateJournalSearchInput!):CreateJournalResponse!
+    balance(input:CreateBalanceInput!):CreateBalanceResponse!
+    generalLedger(input:CreateGeneralLedgerInput!):[CreateGeneralLedgerResponse!]
+    expensesVsEarnings(input:CreateExpenseVsEarningInput!):CreateExpenseVsEarningResponse!
+    transactionDetailByAccount(input:CreateTransactionDetailByAccountInput!):CreateAccountDetailByAccount!
+    getPreviousTreasuryOp(input:CreatePreviousTreasuryOp!):[CreatePreviousTreasuryOpResponse!]!
+
+}
+

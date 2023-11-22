@@ -1,0 +1,51 @@
+type CreateProjectPartnerResponse {
+  id: Int!
+  name: String!
+  email: String!
+  telephone: String!
+}
+
+type ProjectPayment{
+  id:Int!
+  amount:String!
+  createdAt:Date!
+}
+type GetAllProjects {
+  id: Int!
+  designation: String!
+  amount: String!
+  paidAmount: String! 
+  status: Int!
+  projectPayment:[ProjectPayment!]!
+  partner: CreateProjectPartnerResponse!
+}
+
+
+
+type GetAllProjectPartnersResponse {
+  projects: [GetAllProjects!]!
+  count: Int!
+  totalPages: Int!
+}
+
+type GetProjectIdAndNameResponse {
+  id:Int!
+  designation:String!
+}
+
+input GetProjectIdAndNameInput{
+  designation:String!
+    userId:Int!
+    page:Int!
+}
+
+type CreateGetProjectAmountResponse{
+  amount:String
+  paidAmount:String
+}
+
+type Query {
+  getProjectAmount(userId:Int!,projectId:Int!):CreateGetProjectAmountResponse!
+  projects( name: String! userId: Int! page: Int! ): GetAllProjectPartnersResponse!
+  projectIdAndName(input:GetProjectIdAndNameInput!):[GetProjectIdAndNameResponse!]!
+}

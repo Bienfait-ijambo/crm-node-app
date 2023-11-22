@@ -1,0 +1,18 @@
+input CreateMassInput {
+  name: String!
+}
+
+
+input UpdateMassInput {
+  id:ID!
+  name: String! 
+}
+
+
+
+
+type Mutation{
+    createMass(input: CreateMassInput!):CreateMassResponse!
+    updateMass(input: UpdateMassInput!):CreateMassResponse!
+}
+

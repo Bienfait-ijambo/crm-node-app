@@ -1,0 +1,35 @@
+
+type services{
+   services:[CreateServiceResponse!]!
+   count:Int!
+   totalPages:Int!
+}
+
+
+type ServicePaymentField{
+    amount:String!
+    status:Int!
+}
+
+type ServicePaymentFields{
+    id:Int!
+    name:String!
+    servicePayment:[ServicePaymentField!]!
+}
+
+type ServicePaymentResponse{
+    services:[ServicePaymentFields!]!
+   count:Int!
+   totalPages:Int!
+}
+
+input ServicePaymentInput{
+userId:Int!
+page:Int!
+date:String!
+}
+
+type Query{
+    services(name:String!,userId:Int!,page:Int!):services!
+    servicesPayment(input:ServicePaymentInput!):ServicePaymentResponse!
+}

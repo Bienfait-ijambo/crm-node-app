@@ -1,0 +1,43 @@
+
+input CreatePojectInput{
+  designation: String!
+  amount: String!
+  partnerId: Int!
+  userId: Int!
+  status: Int!
+}
+
+
+input UpdatePojectInput{
+  id: ID!
+  designation: String!
+  partnerId: Int!
+  userId: Int!
+  status: Int!
+}
+
+type CreateProjectResponse{
+   id: Int!
+  designation: String!
+  amount: String!
+  partnerId: Int!
+  userId: Int!
+}
+input AffectAmountToProjectInput{
+    userId:Int!
+    projectId:Int!
+    amount:String!
+    status:Boolean!
+}
+type CreateAffectAmountToProjectResponse{
+  success:Boolean!
+}
+type Mutation{
+    createProject(input:CreatePojectInput!):CreateProjectResponse!
+    updateProject(input:UpdatePojectInput!):CreateProjectResponse!
+    affectAmountToProject(input:AffectAmountToProjectInput!):CreateAffectAmountToProjectResponse!
+
+}
+
+
+

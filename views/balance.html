@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Balance</title>
+</head>
+<style>
+    #makeBolder {
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    #contact {
+        font-size: 18px;
+        font-weight: bold;
+        position: relative;
+        top: -10px;
+    }
+
+    #enterpriseName {
+        position: relative;
+        top: -5px;
+    }
+
+    .titleHeader {
+        font-weight: bold;
+        font-size: 18px;
+
+    }
+</style>
+
+<body>
+    <div align="center">
+        <div id="header-content">
+            <span><img width="105" src="{{this.headerData.image}}" alt="logo" /></span>
+
+            <div>
+                <h2 id="enterpriseName">{{this.headerData.name}}</h2>
+                <div id="contact">
+                    <span>Tel : {{this.headerData.telephone}}</span> / <span><a
+                            href="#">{{this.headerData.email}}</a></span>
+                </div>
+
+            </div>
+        </div>
+        <hr />
+    </div>
+    <br />
+    <div id="makeBolder"> Balance du {{this.date.startDate}} - {{this.date.endDate}}</div>
+
+    <table border="1" cellspacing="0" cellpadding="5" width="100%">
+        <thead style="background-color: #ccc;">
+            <tr>
+                <th class="text-left">Code</th>
+                <th class="text-left">Description</th>
+                <th class="text-left">Type</th>
+                <th class="text-left">Masse</th>
+                <th class="text-left">Debit</th>
+                <th class="text-left">Credit</th>
+                <th class="text-left">Solde Final</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            {{#each transactions}}
+            <tr>
+                <td class="text-left">{{ this.accountCode }}</td>
+                <td class="text-left">{{ this.accountName}}</td>
+                <td class="text-left">{{ this.accountType}}</td>
+                <td class="text-left">{{ this.massName}}</td>
+                <td class="text-left"> {{this.totalIncome}} </td>
+                 <td class="text-left"> {{this.totalExpense}} </td>
+                <td class="text-left">
+                    {{this.finalSold}}
+                </td>
+            </tr>
+            {{/each}}
+
+
+            <tr style="font-weight: bold;font-size: 20px;">
+                <td class="text-left" colspan="4">Total</td>
+                <td class="text-left"> {{this.debitAmount}} USD  </td>
+                <td class="text-left"> {{this.creditAmount}}  USD</td>
+                <td class="text-left">
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+
+</html>

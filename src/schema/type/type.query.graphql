@@ -1,0 +1,76 @@
+
+
+type Masses{
+  id:Int!
+  name: String!
+}
+
+type Types{
+  id:Int!
+  name: String!
+  masses: [Masses!]!  
+}
+
+
+type AccountTypes{
+  id:Int!
+  name: String!
+}
+
+input CreateBilanInput{
+  page:Int!
+  userId:Int!
+  startDate:String!
+  endDate:String!
+}
+
+type CreateJournalBilanResponse{
+     id:Int!
+     description:String!
+     amount:String!
+     transactionType:Int!
+     income:String!
+     expense:String!
+     draw:Boolean!
+     transactionCode:String!
+     createdAt:Date!
+     account:account!
+}
+
+
+type CreateBilanAccountResponse{
+   id:Int!
+   name:String!
+   code:String!
+   journals:[CreateJournalBilanResponse!]!
+    
+}
+type CreateBilanMassResponse{
+  id:Int!
+  name: String!
+  status: Int!
+  account:[CreateBilanAccountResponse!]!
+ 
+}
+
+type AccountTypes{
+  masses:[CreateBilanMassResponse]!
+  count: Int!
+  totalPages: Int!
+  
+}
+
+input CreateAccountResultInput{
+  page:Int!
+  userId:Int!
+  startDate:String!
+  endDate:String!
+}
+
+type Query{
+    types:[Types!]!
+    accountTypes:[AccountTypes!]!
+    bilan(input:CreateBilanInput!):AccountTypes!
+    getAccountResult(input:CreateAccountResultInput!):AccountTypes!
+
+}

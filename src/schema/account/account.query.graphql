@@ -1,0 +1,42 @@
+
+
+type AccountType{
+    id:String!
+    name:String!
+}
+
+type AccountMass{
+    id:String!
+    name:String!
+}
+
+
+type AccountResponse{
+    id:ID!
+    name: String!
+    code:String!
+    accountType:AccountType!
+    mass:AccountMass!
+}
+
+
+type CreateAccountResponse{
+    accounts:[AccountResponse]!
+    count:Int!
+   totalPages:Int!
+
+}
+
+input SearchAccountInput{
+    userId:Int!
+    accountName:String!
+    page:Int!
+    code:String!
+    searchType:Int!
+}
+
+
+# name:String,typeId:Int,massId:Int
+type Query{
+    accounts(input:SearchAccountInput!):CreateAccountResponse!
+}

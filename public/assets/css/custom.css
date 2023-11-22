@@ -1,0 +1,33 @@
+#journal {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 60%;
+
+}
+
+#generalLedger {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 50%;
+
+}
+
+
+
+td {
+    border: 1px solid black;
+    text-align: left;
+    padding: 6px;
+}
+
+th {
+    border: 1px solid black;
+    text-align: left;
+    padding: 8px;
+    /*background-color: #111;  */
+    /*color:white;*/
+}
+
+tr:nth-child(odd) {
+    /*background-color: #dddddd;  */
+}

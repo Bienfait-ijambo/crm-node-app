@@ -1,0 +1,12 @@
+
+type GetAllPartnerResponse{
+   partners:[CreatePartnerResponse!]!
+   count:Int!
+   totalPages:Int!
+}
+
+
+
+type Query{
+    partners(name:String!,userId:Int!,page:Int!):GetAllPartnerResponse!
+}

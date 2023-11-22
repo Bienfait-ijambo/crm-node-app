@@ -1,0 +1,57 @@
+input LoginInput{
+    email:String!
+    telephone:String!
+    password:String!
+    loginByInputType:String!
+   
+}
+
+
+type Tokens{
+    accessToken:String
+    refreshToken:String
+}
+
+type UserAuthResponse{
+    id:Int
+    email:String
+    userName:String
+    image:String
+    role:String
+    userCode:String
+    telephone:String
+
+}
+
+type CreateActionResponse{
+  id:Int!
+  name:String!
+}
+
+type CreateUserPermissionResponse{
+  id:Int!
+  name:String!
+  userId:Int!
+  actions:[CreateActionResponse!]!
+}
+
+
+
+
+type AuthReturnType{
+    response:ClientResponse!
+    user:UserAuthResponse
+    tokens:Tokens
+    permissions:[CreateUserPermissionResponse]
+    # You can find the #CreateEnterPriseInfoResponse in authSchema
+    enterpriseInfo:CreateEnterPriseInfoResponse
+}
+
+
+
+type Mutation{
+    loginUser(input:LoginInput!):AuthReturnType
+    getTokens(token:String!):Tokens
+    loginUserViaOAuth(userProviderId:String!):AuthReturnType
+}
+

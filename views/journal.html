@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Journal</title>
+</head>
+<style>
+    /* html {
+  zoom: 0.55;
+} */
+    #makeBolder {
+        font-size: 18px;
+        font-weight: bold;
+    }
+    #contact{
+        font-size: 18px;
+        font-weight: bold;
+        position: relative;
+        top: -10px; 
+    }
+    #enterpriseName{
+        position: relative;
+        top: -5px;
+    }
+    .titleHeader{
+        font-weight: bold;
+        font-size: 18px;
+
+    }
+</style>
+<body>
+
+    <div align="center">
+        <div id="header-content">
+            <span><img width="105" src="{{this.headerData.image}}" alt="logo" /></span>
+
+            <div >
+                <h2 id="enterpriseName">{{this.headerData.name}}</h2>
+                <div id="contact">
+                    <span >Tel : {{this.headerData.telephone}}</span> / <span><a
+                        href="#">{{this.headerData.email}}</a></span>
+                </div>
+                
+            </div>
+        </div>
+        <hr/>
+    </div>
+    <br />
+    <div id="makeBolder"> Journal du {{this.date.startDate}} - {{this.date.endDate}}</div>
+    <div id="makeBolder"> {{journalName}}</div><br/>
+
+    <table style="font-size: 18px;"  border="0" cellspacing="0" cellpadding="5" width="100%">
+
+        <tr style="font-weight:bold;background-color:#ccc;">
+            <td width="15%">DATE</td>
+            <td width="5%">DEBIT</td>
+            <td width="5%">CREDIT</td>
+            <td>LIBELLE</td>
+            <td width="20%"> DEBIT (USD)</td>
+            <td width="20%"> CREDIT  (USD)</td>
+        </tr>
+
+        {{#each journalData}}
+        {{#each this.operations}}
+        <tr style="border-bottom: none;">
+            <td width="10%">{{this.debit.date}}</td>
+
+            <td width="5%">{{this.debit.accountCode}}</td>
+            <td width="5%">{{this.credit.accountCode}}</td>
+            <td>{{this.debit.name}} {{this.credit.name}}</td>
+            <td width="20%"> {{this.debit.amount}}</td>
+            <td width="20%">{{this.credit.amount}} </td>
+        </tr>
+        
+        {{/each }}
+        <tr  style="font-style: italic;background-color:#ccc;border: 2px solid black;">
+            <td width="10%"></td>
+            <td width="5%"></td>
+            <td width="5%"></td>
+            <td>{{this.description}}</td>
+            <td width="20%"> </td>
+            <td width="20%"> </td>
+        </tr>
+        {{/each }}
+
+     
+
+    </table><br />
+
+    
+</body>
+</html>

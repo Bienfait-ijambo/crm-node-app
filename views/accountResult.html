@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bilan</title>
+</head>
+<style>
+    #makeBolder {
+        font-size: 18px;
+        font-weight: bold;
+    }
+    #contact{
+        font-size: 18px;
+        font-weight: bold;
+        position: relative;
+        top: -10px; 
+    }
+    #enterpriseName{
+        position: relative;
+        top: -5px;
+    }
+    .titleHeader{
+        font-weight: bold;
+        font-size: 18px;
+
+    }
+</style>
+
+<body>
+    <div align="center">
+        <div id="header-content">
+            <span><img width="105" src="{{this.headerData.image}}" alt="logo" /></span>
+
+            <div >
+                <h2 id="enterpriseName">{{this.headerData.name}}</h2>
+                <div id="contact">
+                    <span >Tel : {{this.headerData.telephone}}</span> / <span><a
+                        href="#">{{this.headerData.email}}</a></span>
+                </div>
+                
+            </div>
+        </div>
+        <hr/>
+    </div>
+    <br />
+    <div id="makeBolder"> Bilan du {{this.date.startDate}} - {{this.date.endDate}}</div>
+
+    <table border="1" cellspacing="0" cellpadding="5" width="100%">
+        <tr style="font-weight: bold; background-color: #ccc">
+            <td>CHARGES</td>
+            <td>MONTANT en (USD)</td>
+          </tr>
+        
+        <tbody>
+            {{#each chargeAccounts}}
+        <tr style="border-bottom: none">
+          <td>
+            <b>{{ this.massName }}</b>
+          </td>
+          <td></td>
+        </tr>
+
+
+        {{#each this.account}}
+        <tr style="border-bottom: none" >
+          <td>{{ this.code }} {{ this.accountName }}</td>
+          <td>{{ this.valNet }}</td>
+        </tr>
+        {{/each}}
+        <tr id="subTotal">
+          <td>TOTAL GENERAL</td>
+          <td>{{ this.totalMassAmount }}</td>
+        </tr>
+        {{/each}}
+      </tbody>
+
+      <tr style="font-weight: bold; background-color: #ccc">
+        <td>PRODUIT</td>
+        <td>MONTANT</td>
+      </tr>
+
+      
+
+      <tbody>
+    {{#each produitAccounts}}
+      <tr style="border-bottom: none">
+        <td>
+          <b>{{ this.massName }}</b>
+        </td>
+        <td></td>
+      </tr>
+
+      {{#each this.account}}
+      <tr
+        style="border-bottom: none"
+       
+      >
+        <td>{{ this.code }} {{ this.accountName }}</td>
+        <td>{{ this.valNet }}</td>
+      </tr>
+      {{/each}}
+      <tr id="subTotal">
+        <td>TOTAL GENERAL</td>
+        <td>{{ this.totalMassAmount }}</td>
+      </tr>
+      {{/each}}
+    </tbody>
+
+    
+    <tr style="color:red;font-weight: bold;">
+        <td>RESULTAT</td>
+        <td>
+            {{this.result}}
+         USD
+        </td>
+      </tr>
+
+    </table>
+</body>
+
+</html>

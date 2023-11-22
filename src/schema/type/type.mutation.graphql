@@ -1,0 +1,24 @@
+input CreateTypeInput {
+  name: String!
+  massId: Int!  
+}
+
+
+input UpdateTypeInput {
+   id:ID!
+  name: String!
+  massId: Int!  
+}
+
+
+type CreateTypeResponse{
+  name: String!
+  massId: Int!  
+}
+
+type Mutation{
+    createType(input: CreateTypeInput!):CreateTypeResponse!
+    updateType(input: UpdateTypeInput!):CreateTypeResponse!
+
+}
+

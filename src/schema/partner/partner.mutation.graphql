@@ -1,0 +1,27 @@
+input CreatePartnerInput{
+    name:String!
+    email:String!
+    telephone:String!
+    userId:Int!
+}
+
+
+input UpdatePartnerInput{
+    id:ID!
+    name:String!
+    email:String!
+    telephone:String!
+}
+
+type CreatePartnerResponse{
+    id:Int!
+    name:String!
+    email:String!
+    telephone:String!
+}
+
+type Mutation{
+    createPartner(input:CreatePartnerInput!):CreatePartnerResponse!
+    updatePartner(input:UpdatePartnerInput!):CreatePartnerResponse!
+
+}

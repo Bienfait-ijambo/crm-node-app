@@ -1,0 +1,129 @@
+
+
+type CreateUserResponse{
+    id:ID!
+    email:String! 
+    role:String! 
+}
+
+
+
+
+input UserInput{
+    email:String! 
+    role:String! 
+    password:String! 
+    terms:Boolean!
+}
+
+input UpdateUserInput{
+    userName:String!
+    telephone:String!
+    email:String!
+}
+
+input updateUserPasswordInput{
+    id:Int!
+    passwordConfirm:String!
+    newPassword:String!
+}
+
+input VerifyOptNumberInput{
+    email:String!
+    otpNumber:String!
+}
+
+
+type File {
+  name: String!
+  type: String!
+  size: Int!
+  path: String!
+}
+
+type VerifyOtpResponse{
+   success:Boolean!
+}
+
+type CreateUpdateUserResponse{
+    success:Boolean!
+}
+
+input CreateUserOwnByMainUserInput{
+    email:String! 
+    role:String! 
+    userCode:String!
+    password:String! 
+    terms:Boolean!
+    ownByUserId:Int!
+}
+
+
+input UserActions{
+  id:Int!
+  name:String!
+}
+
+input CreateUserPermissionInput{
+  id:Int!
+  name:String!
+  userId:Int!
+  actions:[UserActions!]!
+}
+
+
+
+type CreatePermissionResponse{
+    message:String!
+}
+
+
+input CreateEnterPriseInfoInput{
+  userId: Int!
+  name: String!
+  email: String!
+  telephone: String!
+  taxNumberId: String!
+  rccm: String!
+  idNat: String!
+}
+
+type CreateEnterPriseInfoResponse{
+  image:String
+  name: String
+  email: String
+  telephone: String
+  taxNumberId: String
+  rccm: String
+  idNat: String
+
+}
+
+
+input DeleteUserInput{
+  userId:Int!
+  userCode:String!
+}
+type DeleteUserResponse{
+  success:Boolean!
+}
+input BlockerUserInput{
+  status:Boolean!
+  userCode:String!
+}
+type BlockerUserResponse{
+  success:Boolean!
+}
+type Mutation{
+    registerMainUser(input:UserInput!): CreateUserResponse!
+    createUserOwnByMainUser(input:CreateUserOwnByMainUserInput!): CreateUserResponse!
+    updateUser(input:UpdateUserInput!): CreateUpdateUserResponse!
+    updateUserPassword(input:updateUserPasswordInput!):Message!
+    verifyOptNumber(input:VerifyOptNumberInput!):VerifyOtpResponse!
+    uploadFile(file: Upload!,id:ID!): File!
+    attribUserPermission(input:[CreateUserPermissionInput!]!):CreatePermissionResponse!
+    updateUserPermission(userId:Int!,input:[CreateUserPermissionInput!]!):CreatePermissionResponse!
+    createEnterpriseInfo(input:CreateEnterPriseInfoInput!):CreateEnterPriseInfoResponse!
+    deleteUser(input:DeleteUserInput!):DeleteUserResponse!
+    blockOrUnblockUser(input:BlockerUserInput!):BlockerUserResponse!
+}

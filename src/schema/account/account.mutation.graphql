@@ -1,0 +1,32 @@
+input CreateAccountInput{
+    name: String!
+    code:String!
+    typeId:Int!
+    massId:Int!
+    userId:Int!
+}
+
+input UpdateAccountInput{
+    id:ID!
+    name: String!
+    code:String!
+    typeId:Int!
+    massId:Int!
+    userId:Int!
+}
+
+type CreateAccountResponse{
+    id:ID!
+    name: String!
+    code:String!
+    typeId:Int!
+    massId:Int!
+}
+
+
+
+type Mutation{
+    createAccount(input:CreateAccountInput!):CreateAccountResponse!
+    updateAccount(input:UpdateAccountInput!):CreateAccountResponse!
+
+}

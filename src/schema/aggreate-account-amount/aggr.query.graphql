@@ -1,0 +1,16 @@
+
+
+input TreasuryAccountInput{
+    userId:Int!
+}
+
+type CreateTreasuryAccountResponse{
+    accountname:String!
+    accountcode:Int!
+    totalamount:String!
+}
+
+
+type Query{
+    treasuryAccounts(input:TreasuryAccountInput!):[CreateTreasuryAccountResponse!]!
+}

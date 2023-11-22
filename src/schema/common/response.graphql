@@ -1,0 +1,7 @@
+
+type ClientResponse{
+    message: String!
+    success:Boolean!
+    isValidEmail:Boolean!
+    status: Int!
+}
