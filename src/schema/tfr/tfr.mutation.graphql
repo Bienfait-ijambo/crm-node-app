@@ -1,0 +1,30 @@
+input GrossMarginInput {
+  chargeAccount: AccountInput!
+  profitAccount: AccountInput!
+  period: String!
+  userId: Int!
+}
+
+input AccountInput {
+  code: Float
+  amount: Float!
+  transactionType: TransactionTypeInput!
+}
+
+input TransactionTypeInput {
+  name: String!
+  val: Int!
+}
+
+
+
+type CreateGrossMarginResponse{
+    message: String!
+}
+
+
+
+type Mutation{
+    createGrossMargin(input: GrossMarginInput!):CreateGrossMarginResponse!
+}
+

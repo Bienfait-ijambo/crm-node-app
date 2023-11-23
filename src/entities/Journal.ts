@@ -13,6 +13,21 @@ export enum JournalTransactionType {
   }
   
 
+  
+export const journalTransaction = [
+    {
+      name: 'DEBIT',
+      val: 1,
+    },
+    {
+      name: 'CREDIT',
+      val: 2,
+    },
+  ] as const
+  
+  export type journalTransactionNameType=typeof journalTransaction[number]['name']
+  export type journalTransactionValType=typeof journalTransaction[number]['val']
+
 @Entity()
 export class Journal  {
      

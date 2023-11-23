@@ -163,6 +163,7 @@ type ActionResponse{
 type CreatePageResponse{
     id:Int
     name:String
+    displayName:String!
     actions:[ActionResponse]
 }
 type Query{
@@ -601,7 +602,37 @@ date:String!
 type Query{
     services(name:String!,userId:Int!,page:Int!):services!
     servicesPayment(input:ServicePaymentInput!):ServicePaymentResponse!
-}input CreateTypeInput {
+}input GrossMarginInput {
+  chargeAccount: AccountInput!
+  profitAccount: AccountInput!
+  period: String!
+  userId: Int!
+}
+
+input AccountInput {
+  code: Float
+  amount: Float!
+  transactionType: TransactionTypeInput!
+}
+
+input TransactionTypeInput {
+  name: String!
+  val: Int!
+}
+
+
+
+type CreateGrossMarginResponse{
+    message: String!
+}
+
+
+
+type Mutation{
+    createGrossMargin(input: GrossMarginInput!):CreateGrossMarginResponse!
+}
+
+input CreateTypeInput {
   name: String!
   massId: Int!  
 }
@@ -725,8 +756,8 @@ input UpdateUserInput{
 }
 
 input updateUserPasswordInput{
-    id:ID!
-    currentPassword:String!
+    id:Int!
+    passwordConfirm:String!
     newPassword:String!
 }
 
@@ -773,6 +804,8 @@ input CreateUserPermissionInput{
   actions:[UserActions!]!
 }
 
+
+
 type CreatePermissionResponse{
     message:String!
 }
@@ -799,6 +832,21 @@ type CreateEnterPriseInfoResponse{
 
 }
 
+
+input DeleteUserInput{
+  userId:Int!
+  userCode:String!
+}
+type DeleteUserResponse{
+  success:Boolean!
+}
+input BlockerUserInput{
+  status:Boolean!
+  userCode:String!
+}
+type BlockerUserResponse{
+  success:Boolean!
+}
 type Mutation{
     registerMainUser(input:UserInput!): CreateUserResponse!
     createUserOwnByMainUser(input:CreateUserOwnByMainUserInput!): CreateUserResponse!
@@ -807,7 +855,10 @@ type Mutation{
     verifyOptNumber(input:VerifyOptNumberInput!):VerifyOtpResponse!
     uploadFile(file: Upload!,id:ID!): File!
     attribUserPermission(input:[CreateUserPermissionInput!]!):CreatePermissionResponse!
+    updateUserPermission(userId:Int!,input:[CreateUserPermissionInput!]!):CreatePermissionResponse!
     createEnterpriseInfo(input:CreateEnterPriseInfoInput!):CreateEnterPriseInfoResponse!
+    deleteUser(input:DeleteUserInput!):DeleteUserResponse!
+    blockOrUnblockUser(input:BlockerUserInput!):BlockerUserResponse!
 }
 
 
@@ -832,6 +883,7 @@ type User{
     image:String
     role:String!
     userCode:String!
+    userIsBlocked:Boolean!
     userpermissions:[Userpermissions!]
 }
 
@@ -848,6 +900,8 @@ type GetAllUsersResponse{
 
 type Query {
   users(userName:String!,userCode:String!,page:Int!): GetAllUsersResponse!
+  getSubscribers(userCode:String!): GetAllUsersResponse!
+  getSubscribeUsersByCode(userCode:String!): GetAllUsersResponse!
   user(id: ID!): User!
   
 }

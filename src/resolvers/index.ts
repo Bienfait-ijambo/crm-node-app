@@ -11,6 +11,7 @@ import { dateScalarType } from "./common/dateScalarType";
 import { ServiceResolvers } from "../api/service/v1/presentation";
 import { aggregateAccountResolver } from "../api/aggregate-account-amount/presentation";
 import { pageResolvers } from "../config/page/presentation/graphql";
+import { tfrResolvers } from "../api/tfr/presentation";
 
 
 
@@ -26,7 +27,8 @@ const resolversArray = [
   dateScalarType,
   ServiceResolvers,
   aggregateAccountResolver,
-  pageResolvers
+  pageResolvers,
+  tfrResolvers
 ];
  
 export const resolvers = mergeResolvers(resolversArray);
