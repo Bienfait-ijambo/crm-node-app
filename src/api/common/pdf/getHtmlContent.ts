@@ -5,9 +5,14 @@ import { logErrorToFile } from "../../../infrastructure/graphql-server/winston/l
 
 
 
-export async function  getHtmlContent(file:string) {
+/**
+ * 
+ * @param filePath 
+ * @returns file content
+ */
+export async function  getHtmlContent(filePath:string) {
   try {
-    const stream = createReadStream(file, { encoding: "utf8", });
+    const stream = createReadStream(filePath, { encoding: "utf8", });
     let result = "";
     for await (const chunk of stream) {
       result += chunk;

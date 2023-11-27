@@ -3,9 +3,16 @@ import { EnterpriseInfo } from "../../../entities/EnterpriseInfo";
 
 
 
+
+
 /**
  * 
- * create a pdf file and move it to public folder
+ * @param htmlContent 
+ * @param data 
+ * @param headerData 
+ * @param fileName 
+ * @returns  {string} URL
+ * Create a pdf file and move it to public folder
  */
 export async function  createPdfFile(htmlContent:string,data:any,headerData: EnterpriseInfo,fileName:string){
 

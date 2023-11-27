@@ -632,6 +632,35 @@ type Mutation{
     createGrossMargin(input: GrossMarginInput!):CreateGrossMarginResponse!
 }
 
+
+
+# [ { "id": 0, "account": 80, "rowStatus": "ADD", "amount": "10", "transactionType": 1 }, 
+# { "id": 1, "account": "13", "rowStatus": "REMOVE", "amount": "8", "transactionType": 2 } ]
+
+input CreateValueAddedInput {
+  account:Int!
+  amount: Float!
+  transactionType:Int!
+  userId:Int!
+  period:String!
+}
+
+
+
+type CreateValueAddedResponse{
+    message: String!
+}
+
+
+
+type Mutation{
+    createValueAdded(input: [CreateValueAddedInput!]!):CreateValueAddedResponse!
+}
+
+
+
+# [ { "id": 0, "account": 80, "rowStatus": "ADD", "amount": "10", "transactionType": 1 }, 
+# { "id": 1, "account": "13", "rowStatus": "REMOVE", "amount": "8", "transactionType": 2 } ]
 input CreateTypeInput {
   name: String!
   massId: Int!  

@@ -17,7 +17,6 @@ import { handleExpressError } from "./exceptions/handleExpressError";
 import { applyMiddleware } from "graphql-middleware";
 import permissions from "./middleware/permissions";
 import { routesV1 } from "../express/routes/RoutesV1";
-import { InMemoryLRUCache } from '@apollo/utils.keyvaluecache';
 
 const cors = require('cors')
 

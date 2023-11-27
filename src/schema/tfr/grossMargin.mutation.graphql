@@ -28,3 +28,7 @@ type Mutation{
     createGrossMargin(input: GrossMarginInput!):CreateGrossMarginResponse!
 }
 
+
+
+# [ { "id": 0, "account": 80, "rowStatus": "ADD", "amount": "10", "transactionType": 1 }, 
+# { "id": 1, "account": "13", "rowStatus": "REMOVE", "amount": "8", "transactionType": 2 } ]

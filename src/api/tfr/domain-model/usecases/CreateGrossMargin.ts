@@ -13,8 +13,8 @@ export class CreateGrossMarginUseCase {
     const result = await AppDataSource.transaction(async () => {
         
       const [result1]=await Promise.all([
-        this.repo.createGrossMarginOperation(dto.getTfrInput()),
-        this.repo.createGrossMargin(dto.getTfrResultAccountInput()),
+        this.repo.createTFr(dto.getGrossMarginInput()),
+        this.repo.createTfrResulatAccount(dto.getTfrResultAccountInput()),
       ]);
 
       return result1;

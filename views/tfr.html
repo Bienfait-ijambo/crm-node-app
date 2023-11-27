@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TFR</title>
+</head>
+<style>
+    /* html {
+  zoom: 0.55;
+} */
+    #to_bold {
+        font-size: 18px;
+        font-weight: bold;
+        background-color: #ccc;
+    }
+
+    #contact {
+        font-size: 18px;
+        font-weight: bold;
+        position: relative;
+        top: -10px;
+    }
+
+    #enterpriseName {
+        position: relative;
+        top: -5px;
+    }
+
+    .titleHeader {
+        font-weight: bold;
+        font-size: 18px;
+
+    }
+</style>
+
+<body>
+
+    <div align="center">
+        <div id="header-content">
+            <span><img width="105" src="{{this.headerData.image}}" alt="logo" /></span>
+
+            <div>
+                <h2 id="enterpriseName">{{this.headerData.name}}</h2>
+                <div id="contact">
+                    <span>Tel : {{this.headerData.telephone}}</span> / <span><a
+                            href="#">{{this.headerData.email}}</a></span>
+                </div>
+
+            </div>
+        </div>
+        <hr />
+    </div>
+    <br />
+    <div>
+        <h3>TABLEAU DE FORMATION DE RESULTAT PAR PALIER</h3>
+    </div>
+    <!-- <div id="makeBolder"> Journal du {{this.date.startDate}} - {{this.date.endDate}}</div> -->
+    <!-- <div id="makeBolder"> {{journalName}}</div><br/> -->
+
+    <table style="font-size: 18px;" border="0" cellspacing="0" cellpadding="5" width="100%">
+
+        <tr style="font-weight:bold;background-color:#ccc;">
+            <td width="5%">N° </td>
+            <td width="5%">Compte</td>
+            <td width="30%">Designation</td>
+            <td width="20%"> Debit (USD)</td>
+            <td width="20%"> Credit (USD)</td>
+        </tr>
+
+        {{#each tfrData}}
+
+        <tr id="{{this.style}}">
+            <td width="15%"></td>
+            <td width="5%" style="border-bottom: none;border-bottom-color: white;">{{ this.account }}</td>
+            <td width="5%">{{ this.designation }}</td>
+            <td width="20%"> {{ this.debit }} </td>
+            <td width="20%"> {{ this.credit }}</td>
+        </tr>
+
+        {{/each}}
+
+
+    </table><br />
+
+</body>
+
+</html>

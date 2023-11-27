@@ -4,45 +4,58 @@ import {
   Column,
   UpdateDateColumn,
   DeleteDateColumn,
-
   Index,
 } from "typeorm";
+import { TfrAccount } from "../shared/types/brandTypes";
 
-export const resultType = [
-  { name: "MARGE_BRUTE", val: 1,code:80 },
-  { name: "VALEUR_AJOUTER", val: 2,code:81 },
-  { name: "RESULTAT_BRUT_D_EXPLOITATION", val: 3,code:83 },
-  { name: "RESULTAT_NET_D_EXPLOITATION", val: 4 ,code:84},
-  { name: "RESULTAT_AVANT_CONTRIBUTION_SUR_BENEFICE", val: 5,code:85 },
-  { name: "RESULTAT_NET", val: 6,code:13 },
-] as const 
+export const TfrResultType = [
+  { name: "MARGE_BRUTE", val: 1, code: 80 },
+  { name: "VALEUR_AJOUTER", val: 2, code: 81 },
+  { name: "RESULTAT_BRUT_D_EXPLOITATION", val: 3, code: 83 },
+  { name: "RESULTAT_NET_D_EXPLOITATION", val: 4, code: 84 },
+  { name: "RESULTAT_AVANT_CONTRIBUTION_SUR_BENEFICE", val: 5, code: 85 },
+  { name: "RESULTAT_NET", val: 6, code: 13 },
+] as const;
 
-export type resultTypeValType=typeof resultType[number]['val']
+/**
+ *
+ * @param code
+ * @returns {object} of name,code,val
+ */
+export function getTfrResultTypeByCode(
+  code: TfrAccount
+): { name: resultTypeNameType; code: TfrAccount; val: number } | undefined {
+  const result = TfrResultType.filter((item) => item.code === code);
+  if (result.length > 0) {
+    return {
+      name: result[0].name,
+      code: result[0].code as TfrAccount,
+      val: result[0].val,
+    };
+  }
+  return;
+}
 
+export type resultTypeValType = (typeof TfrResultType)[number]["val"];
 
-export type resultTypeNameType=typeof resultType[number]['name']
+export type resultTypeNameType = (typeof TfrResultType)[number]["name"];
 
-export type resultTypeCodeType=typeof resultType[number]['code']
-
+export type resultTypeCodeType = (typeof TfrResultType)[number]["code"];
 
 /**
  * in french : vente marchandise
  */
-export const SOLD_MERCHENDISE=70
+export const SOLD_MERCHENDISE = 70;
 
 /**
  * in french: stock - vendu
  */
-export const SOLD_STOCK=60
-
-
-
-
+export const SOLD_STOCK = 60;
 
 /**
  * Tableau de formation de résultat
- * 
- * 
+ *
+ *
  * This table holds TfrResultAccountOperations
  */
 @Entity()
@@ -54,7 +67,7 @@ export class Tfr {
   account: number;
 
   /**
-   * Journal Transaction Type 
+   * Journal Transaction Type
    * @{debit} or {credit}
    */
   @Column()
@@ -90,7 +103,7 @@ export class Tfr {
     transactionType: number,
     resultType: resultTypeNameType,
     amount: string,
-    period:string,
+    period: string,
     userId: number
   ) {
     this.account = account;

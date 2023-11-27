@@ -52,17 +52,17 @@ export class RecordTransactionUseCase {
 
         //update 
 
-        // await this.updateIntoAggregateAccount(inputToUpdate)
+          this.updateIntoAggregateAccount(inputToUpdate)
       
         //  service payment
-          this.createServicePayment(journalInput,serviceStatus)
+          // this.createServicePayment(journalInput,serviceStatus)
 
           this.journalRepo.recordTransaction(journalInsertInput);
 
   
       } else {
         //insert
-        // await this.saveIntoAggregateAccountTable(aggrInput, journalInput);
+         this.saveIntoAggregateAccountTable(aggrInput, journalInput);
 
          this.journalRepo.recordTransaction(journalInsertInput);
       }
@@ -80,40 +80,40 @@ export class RecordTransactionUseCase {
     return doesAccountsExist;
   }
 
-  // @catchError
-  // private async saveIntoAggregateAccountTable(aggrInput: CreateAggregateAccountDto, journalInput: IJournalDto[]) {
-  //   await this.aggragateAccountRepo.recordData(
-  //     aggrInput.getInsertInput(journalInput)
-  //   );
+  @catchError
+  private async saveIntoAggregateAccountTable(aggrInput: CreateAggregateAccountDto, journalInput: IJournalDto[]) {
+    await this.aggragateAccountRepo.recordData(
+      aggrInput.getInsertInput(journalInput)
+    );
 
 
-  // }
-
-
-
-
-  /**
-   * 
-   * @param journalInput 
-   * @param serviceStatus 
-   */
-  
-  private async createServicePayment(journalInput: IJournalDto[],serviceStatus:number){
-   const usecase= new CreateServicePaymentUseCase(this.serviceRepo)
-   await usecase.execute(journalInput)
- 
   }
 
 
 
 
-
-
-  // private async updateIntoAggregateAccount(inputToUpdate:any){
-  //   for (let i = 0; i < inputToUpdate.length; i++) {
-  //     await this.aggragateAccountRepo.updateData(inputToUpdate[i]);
-  //   }
+  // /**
+  //  * 
+  //  * @param journalInput 
+  //  * @param serviceStatus 
+  //  */
+  
+  // private async createServicePayment(journalInput: IJournalDto[],serviceStatus:number){
+  //  const usecase= new CreateServicePaymentUseCase(this.serviceRepo)
+  //  await usecase.execute(journalInput)
+ 
   // }
+
+
+
+
+
+
+  private async updateIntoAggregateAccount(inputToUpdate:any){
+    for (let i = 0; i < inputToUpdate.length; i++) {
+      await this.aggragateAccountRepo.updateData(inputToUpdate[i]);
+    }
+  }
 
 
   

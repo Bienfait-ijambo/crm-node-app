@@ -8,7 +8,8 @@ import { ITFRRepo } from "./ITFRRepo";
 
 export class TypeormTFRRepo implements ITFRRepo{
 
-   async createGrossMargin(input: TfrResultAccount): Promise<TfrResultAccount> {
+  @catchError
+   async createTfrResulatAccount(input: TfrResultAccount): Promise<TfrResultAccount> {
     await AppDataSource.createQueryBuilder()
     .insert()
     .into(TfrResultAccount)
@@ -20,7 +21,7 @@ export class TypeormTFRRepo implements ITFRRepo{
 
 
     @catchError
-    public async createGrossMarginOperation(input: Tfr[]) :Promise<Tfr[]>{
+    public async createTFr(input: Tfr[]) :Promise<Tfr[]>{
      await AppDataSource.createQueryBuilder()
         .insert()
         .into(Tfr)

@@ -8,6 +8,7 @@ import {
     Index,
   } from "typeorm";
 import { resultTypeCodeType, resultTypeNameType } from "./Trf";
+import { TfrAccount } from "../shared/types/brandTypes";
   
  
   
@@ -59,7 +60,7 @@ import { resultTypeCodeType, resultTypeNameType } from "./Trf";
     readonly deletedAt?: Date;
   
     constructor(
-      account: resultTypeCodeType,
+      account: TfrAccount,
       transactionType: number,
       resultType: resultTypeNameType,
       amount: string,

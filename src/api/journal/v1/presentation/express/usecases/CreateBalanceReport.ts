@@ -16,14 +16,14 @@ export class CreateBalanceReport {
 
   static async getPdf(req: Request, res: Response, next: NextFunction) {
     try {
-      const startDate = req.query.startDate;
-      const enDate = req.query.endDate;
-      const page: any = req.query.page;
-      const userId: any = req.query.userId;
+      const startDate = req.query?.startDate;
+      const enDate = req.query?.endDate;
+      const page: any = req.query?.page;
+      const userId = req.query?.userId as string
 
       const input = {
         page: parseInt(page),
-        userId: parseInt(userId.toString()),
+        userId: parseInt(userId),
         startDate: startDate,
         endDate: enDate,
       } as IBalanceReportInput;
@@ -31,16 +31,17 @@ export class CreateBalanceReport {
      
       const dto=new CreateGetBalanceInput(input)
 
-      const {transactions,debitAmount,creditAmount} = await CreateBalanceReport.getBalanceData(dto.getBilanInput());
 
-      const htmlContent = await getHtmlContent(getViewPath("balance.html"));
-
-      const headerData=await CreateBalanceReport.getUserEnterpiseInfo(input.userId)
+      const [htmlContent,headerData,bilan]=await Promise.all([
+        getHtmlContent(getViewPath("balance.html")),
+        CreateBalanceReport.getUserEnterpiseInfo(input.userId),
+        CreateBalanceReport.getBalanceData(dto.getBilanInput())
+      ])
 
       const data = {
-        transactions:transactions,
-        debitAmount:debitAmount,
-        creditAmount:creditAmount,
+        transactions:bilan.transactions,
+        debitAmount:bilan.debitAmount,
+        creditAmount:bilan.creditAmount,
         headerData:headerData,
         date:input
       };

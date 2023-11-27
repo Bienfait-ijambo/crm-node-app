@@ -90,15 +90,15 @@ export async function moveFileToFolder( req: any, res: any, path: string, fieldN
 }
 
 
+
 /**
  * 
- * @param viewName 
- * get view path in views folder
+ * @param file 
+ * @returns : file path located in views-folder
  */
-
-export function getViewPath(viewName: string){
+export function getViewPath(file: string){
   const rootPath = process.cwd();
-  const viewPath = path.join(rootPath, "views", viewName);
+  const viewPath = path.join(rootPath, "views", file);
   return viewPath;
 }
 
