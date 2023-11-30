@@ -3,7 +3,7 @@ import { AppDataSource } from "./data-source";
 
 export default async function createDBConnection() {
   try {
-    AppDataSource.initialize();
+    await AppDataSource.initialize();
     logErrorToFile("db-started...", "db-started");
     console.log("Database started successfully !");
   } catch (error) {

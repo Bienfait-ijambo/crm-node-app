@@ -8,6 +8,16 @@ import {
 } from "typeorm";
 import { TfrAccount } from "../shared/types/brandTypes";
 
+export enum TFR_ACCOUNT {
+  MARGE_BRUTE = 80,
+  VALEUR_AJOUTER = 81,
+  RESULTAT_BRUT_D_EXPLOITATION = 83,
+  RESULTAT_NET_D_EXPLOITATION = 84,
+  RESULTAT_AVANT_CONTRIBUTION_SUR_BENEFICE = 85,
+  RESULTAT_NET = 13,
+}
+
+
 export const TfrResultType = [
   { name: "MARGE_BRUTE", val: 1, code: 80 },
   { name: "VALEUR_AJOUTER", val: 2, code: 81 },

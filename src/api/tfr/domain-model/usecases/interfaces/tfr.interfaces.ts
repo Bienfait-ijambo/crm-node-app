@@ -35,3 +35,8 @@ export interface ValueAddedInput {
   userId: number;
   period: string;
 }
+
+export  interface IGetTfrDataInput{
+  period:string,
+  userId:number
+}

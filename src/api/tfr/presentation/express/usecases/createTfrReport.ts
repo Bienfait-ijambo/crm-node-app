@@ -4,89 +4,46 @@ import { userRepo } from "../../../../user/v1/repository/TypeormUserRepo";
 import { createPdfFile } from "../../../../common/pdf/CreatePdfFile";
 import { getViewPath } from "../../../../../shared/util/util";
 import { getHtmlContent } from "../../../../common/pdf/getHtmlContent";
+import { GetTfrDataUseCase } from "../../../domain-model/usecases/getTfrData";
+import { tfrRepo } from "../../../repository/TypeormTFRRepo";
+import { IGetTfrDataInput } from "../../../domain-model/usecases/interfaces/tfr.interfaces";
+import { CreateGetTFRDataInput } from "../../../domain-model/dto/createGetTfrDataInput";
+import { AggregateTfrProcessedData } from "./helpers/aggregateProcessedTfrData";
+
 
 
 
 export class CreateTfrReport {
 
+  private static getInputFromRequest(req:Request){
+
+    const period = req.query?.period;
+      const userId = req.query?.userId as string;
+
+      const input = {
+        userId: parseInt(userId),
+        period: period,
+      } as IGetTfrDataInput;
+      return input
+
+  }
+
+  
   static async generatePdf(req: Request, res: Response, next: NextFunction) {
     try {
-    //   const startDate = req.query?.startDate;
-    //   const enDate = req.query?.endDate;
-    //   const page: any = req.query?.page;
-    //   const userId = req.query?.userId as string
+      const dto = new CreateGetTFRDataInput(CreateTfrReport.getInputFromRequest(req));
 
-    //   const input = {
-    //     page: parseInt(page),
-    //     userId: parseInt(userId),
-    //     startDate: startDate,
-    //     endDate: enDate,
-    //   } as IBalanceReportInput;
+      await dto.validate();
 
-     
-    //   const dto=new CreateGetBalanceInput(input)
-
-
-      const [htmlContent,headerData]=await Promise.all([
+      const [htmlContent,headerData,tfrData]=await Promise.all([
         getHtmlContent(getViewPath("tfr.html")),
         CreateTfrReport.getUserEnterpiseInfo(1),
+        CreateTfrReport.getTfrData(dto.getInput())
        
       ])
-
+      const process=new AggregateTfrProcessedData(tfrData)
       const data = {
-        tfrData:[
-            {
-              style:'non',
-                resultType:'MARGE_BRUTE',
-                account:70,
-                designation:'Vente marchandise',
-                debit:null,
-                credit:60000
-            },
-            {
-              style:'none',
-                resultType:'MARGE_BRUTE',
-                account:60,
-                designation:'STOCK VENDU',
-                debit:50000,
-                credit:null
-            },
-            {
-               style:'to_bold',
-                resultType:'MARGE_BRUTE',
-                account:80,
-                designation:'MARGE_BRUTE',
-                debit:50000,
-                credit:null
-            },
-            {
-              style:'non',
-                resultType:'MARGE_BRUTE',
-                account:70,
-                designation:'Vente marchandise',
-                debit:null,
-                credit:60000
-            },
-            {
-              style:'none',
-                resultType:'MARGE_BRUTE',
-                account:60,
-                designation:'STOCK VENDU',
-                debit:50000,
-                credit:null
-            },
-            {
-               style:'to_bold',
-                resultType:'MARGE_BRUTE',
-                account:80,
-                designation:'MARGE_BRUTE',
-                debit:50000,
-                credit:null
-            },
-            
-            
-        ],
-       
+        tfrData:process.execute(),
         headerData:headerData,
         date:{}
       };
@@ -103,6 +60,12 @@ export class CreateTfrReport {
   }
 
 
+
+  private static async getTfrData(input:IGetTfrDataInput){
+    const useCase=new GetTfrDataUseCase(tfrRepo)
+    const result=await useCase.execute(input)
+    return result
+  }
  
 
 

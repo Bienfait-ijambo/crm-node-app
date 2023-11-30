@@ -2,14 +2,11 @@ import { CreateUserInput } from "./interfaces/userInterfaces";
 import { IUserDto } from "../domain/IUserDto";
 import { UserDomain } from "../domain/UserDomain";
 import { IUserRepo } from "../../repository/IUserRepo";
-import { sendEmailVerification } from "../events/EmailVerification";
 import { userRole } from "../domain/Role";
 import { CreateOAuthInput } from "../domain/CreateOAuthInput";
 import { IGoogleStrategy } from "../auth/interfaces/IGoogleStrategy";
 import { ILinkedInStrategy } from "../auth/interfaces/ILinkinStrategy";
-import { generateCode } from "../../../../../shared/util/util";
 import { generateOTP } from "../../../../../shared/util/generateOpt";
-import { logErrorToFile } from "../../../../../infrastructure/graphql-server/winston/logger";
 
 export class CreateUserUseCase {
   private repo: IUserRepo;
@@ -23,17 +20,18 @@ export class CreateUserUseCase {
   ): Promise<Omit<IUserDto, "password">> {
     const userDomain = UserDomain.createUserInput(input);
 
-    const hash = await UserDomain.hashPassword(input.password);
+    const [hash,userEmailExist] = await Promise.all([
+      UserDomain.hashPassword(input.password),
+      this.repo.findUserByEmail(userDomain.email)
+    ])
+
     userDomain.password = hash;
 
-    const userEmailExist = await this.repo.findUserByEmail(userDomain.email);
-
     if (userEmailExist) throw new Error(`Cette adresse mail existe déjà !`);
-
     const user = await this.repo.createUser(userDomain);
 
-  
-    return user;
+     
+    return user ;
   }
 
   /**

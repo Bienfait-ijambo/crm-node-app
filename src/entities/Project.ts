@@ -48,9 +48,6 @@ export class Project  {
     @ManyToOne(() => Partner, (partner) => partner.projects)
     partner: Partner
 
-    // @OneToMany(() => Journal, (journal) => journal.project)
-    // journals: Journal[]
-
 
     @OneToMany(() => ProjectPayment, (projectPayement) => projectPayement.project)
     projectPayment: ProjectPayment[]

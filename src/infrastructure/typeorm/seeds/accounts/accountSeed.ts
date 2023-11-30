@@ -9,24 +9,28 @@ import { AppDataSource } from "../../data-source";
 export async function seedMass() {
   try {
     const result = await AppDataSource.getRepository(Mass).count();
-
-    if (result === 0) {
-      const arr = MASSES;
-      for (let i = 0; i < arr.length; i++) {
-        await AppDataSource.createQueryBuilder()
-          .insert()
-          .into("mass")
-          .values({
-            name: arr[i].name,
-            status: arr[i].status,
-          })
-          .execute();
-      }
-    } else {
+  
+    if (result !== 0) {
       console.log("Already seed---> mass !!");
+      return false;
+    } 
+
+    for (let i = 0; i < MASSES.length; i++) {
+       await AppDataSource.createQueryBuilder()
+        .insert()
+        .into(Mass)
+        .values({
+          name: MASSES[i].name,
+          status: MASSES[i].status,
+        })
+        .execute();
+
+       
     }
+
+
   } catch (error) {
-    console.log("seed-error---> mass");
+    console.log("seed-error---> mass",error.message);
   }
 }
 
@@ -35,14 +39,13 @@ export async function seedAccountType() {
     const result = await AppDataSource.getRepository(AccountType).count();
 
     if (result === 0) {
-      const arr = ACCOUNT_TYPE_SEED_DATA;
-      for (let i = 0; i < arr.length; i++) {
+      for (let i = 0; i < ACCOUNT_TYPE_SEED_DATA.length; i++) {
         await AppDataSource.createQueryBuilder()
           .insert()
-          .into("account_type")
+          .into(AccountType)
           .values({
-            name: arr[i].name,
-            status: arr[i].status,
+            name: ACCOUNT_TYPE_SEED_DATA[i].name,
+            status: ACCOUNT_TYPE_SEED_DATA[i].status,
           })
           .execute();
       }

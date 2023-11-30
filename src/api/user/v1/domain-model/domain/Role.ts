@@ -8,6 +8,7 @@ export enum userRole {
   SUPERUSER='SUPER_UBS_USER_76375077'
 }
 
+type roleType=keyof typeof userRole
 export class Roles{
 
   /**

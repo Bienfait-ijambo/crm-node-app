@@ -1,7 +1,6 @@
 
 import {  OWNER_USER, User } from "../../../../../entities/User";
 import { generateOTP } from "../../../../../shared/util/generateOpt";
-import { generateCode } from "../../../../../shared/util/util";
 import { Email } from "../../../../common/domain/Email";
 import { Telephone } from "../../../../common/domain/Telephone";
 import { CreateUserInput, UpdateUserInput, UploadImageInput, } from "../usecases/interfaces/userInterfaces";
