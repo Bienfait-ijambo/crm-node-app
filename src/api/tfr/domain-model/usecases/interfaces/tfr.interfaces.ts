@@ -40,3 +40,11 @@ export  interface IGetTfrDataInput{
   period:string,
   userId:number
 }
+
+export interface createPeriodicResultInput{
+  name: string;
+  resultDate: string;
+  status:number
+  userId: number;
+
+}

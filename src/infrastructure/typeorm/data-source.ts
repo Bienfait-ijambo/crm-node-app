@@ -16,6 +16,7 @@ import {  clientPages } from "../../entities/ClientPages";
 import { EnterpriseInfo } from "../../entities/EnterpriseInfo";
 import { Tfr } from "../../entities/Trf";
 import { TfrResultAccount } from "../../entities/TfrResultAccount";
+import { PeriodicTfrResult } from "../../entities/PeriodicTfrResult";
 
 const mysqlConnection: DataSourceOptions = {
   type: "mysql",
@@ -39,7 +40,7 @@ const mysqlConnection: DataSourceOptions = {
     Service,
     AggregateAccountAmount,
     Tfr,
-    ServicePayment,clientPages,EnterpriseInfo,TfrResultAccount
+    ServicePayment,clientPages,EnterpriseInfo,TfrResultAccount,PeriodicTfrResult
   ],
   subscribers: [],
   migrations: ["src/infrastructure/typeorm/migrations/**/*{.ts,.js}"],

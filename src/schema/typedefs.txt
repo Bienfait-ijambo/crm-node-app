@@ -602,7 +602,53 @@ date:String!
 type Query{
     services(name:String!,userId:Int!,page:Int!):services!
     servicesPayment(input:ServicePaymentInput!):ServicePaymentResponse!
-}input GrossMarginInput {
+}
+input CreateValueAddedInput {
+  tfrResultType:Int!
+  account:Int!
+  amount: Float!
+  transactionType:Int!
+  userId:Int!
+  period:String!
+}
+
+
+
+type CreateValueAddedResponse{
+    message: String!
+}
+
+
+
+type Mutation{
+    CreateTfrResult(input: [CreateValueAddedInput!]!):CreateValueAddedResponse!
+}
+
+
+
+# [ { "id": 0, "account": 80, "rowStatus": "ADD", "amount": "10", "transactionType": 1 }, 
+# { "id": 1, "account": "13", "rowStatus": "REMOVE", "amount": "8", "transactionType": 2 } ]
+input CreatePeriodicTfrResultInput {
+  name: String!
+  resultDate: String!
+  status:Int!
+  userId: Int!
+}
+
+
+
+
+type CreatePeriodicTfrResultResponse{
+    message: String!
+}
+
+
+
+type Mutation{
+    createPeriodicTfrResult(input: CreatePeriodicTfrResultInput!):CreateGrossMarginResponse!
+}
+
+input GrossMarginInput {
   chargeAccount: AccountInput!
   profitAccount: AccountInput!
   period: String!
@@ -637,31 +683,28 @@ type Mutation{
 # [ { "id": 0, "account": 80, "rowStatus": "ADD", "amount": "10", "transactionType": 1 }, 
 # { "id": 1, "account": "13", "rowStatus": "REMOVE", "amount": "8", "transactionType": 2 } ]
 
-input CreateValueAddedInput {
-  account:Int!
-  amount: Float!
-  transactionType:Int!
-  userId:Int!
-  period:String!
+
+type PeriodicTfrResult{
+  name: String!
+  resultDate: String!
+  status: Int!
+  userId: Int!
 }
 
-
-
-type CreateValueAddedResponse{
-    message: String!
+type PeriodicTfrResultResponse{
+   periodicData:[PeriodicTfrResult!]!
+   count:Int!
+   totalPages:Int!
 }
 
-
-
-type Mutation{
-    createValueAdded(input: [CreateValueAddedInput!]!):CreateValueAddedResponse!
+input PeriodicTfrInput{
+    userId:Int!
+    page:Int!
 }
 
-
-
-# [ { "id": 0, "account": 80, "rowStatus": "ADD", "amount": "10", "transactionType": 1 }, 
-# { "id": 1, "account": "13", "rowStatus": "REMOVE", "amount": "8", "transactionType": 2 } ]
-input CreateTypeInput {
+type Query{
+    getPeriodicTfrResult(input:PeriodicTfrInput!):PeriodicTfrResultResponse!
+}input CreateTypeInput {
   name: String!
   massId: Int!  
 }
