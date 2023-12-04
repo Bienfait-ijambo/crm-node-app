@@ -1,6 +1,6 @@
 import { logErrorToFile } from "../winston/logger";
 
-export const handleExpressError = async (err, req, res, next) => {
+export const handleExpressError =  (err, req, res, next) => {
   // Check if the error is an authentication-related error
   if (err) {
     // Handle the authentication error here
@@ -8,10 +8,7 @@ export const handleExpressError = async (err, req, res, next) => {
       const clientUrl = process.env.CLIENT_URL;
      return res.redirect(`${clientUrl}`);
     } else {
-      
-      await logErrorToFile(err,'express-error')
-
-      return res.status(500).json({ error: err.name });
+      return res.status(500).json({ error: err.name ,message:"Express error, check it out Ben !"});
     }
   }
 

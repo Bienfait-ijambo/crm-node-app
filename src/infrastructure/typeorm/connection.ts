@@ -3,9 +3,10 @@ import { AppDataSource } from "./data-source";
 
 export default async function createDBConnection() {
   try {
-    await AppDataSource.initialize();
+   const db= await AppDataSource.initialize();
+   console.log('database connection established....')
     logErrorToFile("db-started...", "db-started");
-    console.log("Database started successfully !");
+    return db
   } catch (error) {
     console.log("database error: " + error.message);
     logErrorToFile("Failed to connect to the DB : ", "db-error-msg");

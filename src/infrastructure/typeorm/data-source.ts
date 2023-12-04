@@ -54,7 +54,7 @@ export const postgresConnection: DataSourceOptions = {
 };
 
 const selectDb = () => {
-  return process.env.DB_TYPE == "mysql" ? mysqlConnection : postgresConnection;
+  return process.env.DB_TYPE === "mysql" ? mysqlConnection : postgresConnection;
 };
 
 export const AppDataSource = new DataSource(selectDb());
