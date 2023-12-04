@@ -1,0 +1,21 @@
+
+input CreateValueAddedInput {
+  tfrResultType:Int!
+  account:Int!
+  amount: Float!
+  transactionType:Int!
+  userId:Int!
+  periodCode:String!
+}
+
+
+
+type CreateValueAddedResponse{
+    message: String!
+}
+
+
+
+type Mutation{
+    CreateTfrResult(input: [CreateValueAddedInput!]!):CreateValueAddedResponse!
+}

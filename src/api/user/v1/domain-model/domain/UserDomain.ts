@@ -1,6 +1,6 @@
 
 import {  OWNER_USER, User } from "../../../../../entities/User";
-import { generateOTP } from "../../../../../shared/util/generateOpt";
+import { generateRandomNumber } from "../../../../../shared/util/generateOpt";
 import { Email } from "../../../../common/domain/Email";
 import { Telephone } from "../../../../common/domain/Telephone";
 import { CreateUserInput, UpdateUserInput, UploadImageInput, } from "../usecases/interfaces/userInterfaces";
@@ -20,7 +20,7 @@ export class UserDomain {
   
     const email = new Email(input.email);
     const userCode = generateUserCode(email.getEmail());
-    const otp=generateOTP(6)
+    const otp=generateRandomNumber(6)
     const userProviderId=''
     const emailIsVerified=true
    

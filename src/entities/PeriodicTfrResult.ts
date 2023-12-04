@@ -24,6 +24,9 @@ import {
     status: number;
 
     @Column()
+    code: string;
+
+    @Column()
     userId: number;
   
     @Index()
@@ -40,9 +43,11 @@ import {
       name:string,
       resultDate:string,
       status:number,
+      code:string,
       userId: number
     ) {
       this.name=name
+      this.code=code
       this.resultDate=resultDate
       this.status=status
       this.userId=userId

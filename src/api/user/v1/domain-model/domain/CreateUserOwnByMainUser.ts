@@ -1,5 +1,4 @@
 import { User } from "../../../../../entities/User";
-import { generateOTP } from "../../../../../shared/util/generateOpt";
 import { Email } from "../../../../common/domain/Email";
 import { ID } from "../../../../common/domain/ID";
 import { IUserOwnByMainUser } from "../usecases/interfaces/userInterfaces";

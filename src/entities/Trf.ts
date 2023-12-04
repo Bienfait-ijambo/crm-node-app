@@ -93,7 +93,7 @@ export class Tfr {
   resultType: string;
 
   @Column()
-  period: string;
+  periodCode: string;
 
   @Column()
   userId: number;
@@ -113,14 +113,14 @@ export class Tfr {
     transactionType: number,
     resultType: resultTypeNameType,
     amount: string,
-    period: string,
+    periodCode: string,
     userId: number
   ) {
     this.account = account;
     this.transactionType = transactionType;
     this.amount = amount;
     this.userId = userId;
-    this.period = period;
+    this.periodCode = periodCode;
     this.resultType = resultType;
   }
 }

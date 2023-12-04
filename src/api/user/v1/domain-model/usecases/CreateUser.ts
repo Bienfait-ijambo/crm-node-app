@@ -6,7 +6,7 @@ import { userRole } from "../domain/Role";
 import { CreateOAuthInput } from "../domain/CreateOAuthInput";
 import { IGoogleStrategy } from "../auth/interfaces/IGoogleStrategy";
 import { ILinkedInStrategy } from "../auth/interfaces/ILinkinStrategy";
-import { generateOTP } from "../../../../../shared/util/generateOpt";
+import { generateRandomNumber } from "../../../../../shared/util/generateOpt";
 
 export class CreateUserUseCase {
   private repo: IUserRepo;
@@ -76,7 +76,7 @@ export class CreateUserUseCase {
   private createUserProviderId(userProviderId: string){
     const timestamp = Date.now();
     const randomNumber = Math.floor(Math.random() * 1000000);
-    const randomCode=generateOTP(6)
+    const randomCode=generateRandomNumber(6)
     return `${timestamp}-${randomNumber}-${userProviderId}-${randomCode}`;
   }
 

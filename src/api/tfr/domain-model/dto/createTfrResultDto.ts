@@ -38,7 +38,7 @@ export class CreateTfrResultDto {
         transactionType,
         resultType,
         amount.toString(),
-        this.input[0].period,
+        this.input[0].periodCode,
         this.input[0].userId
       );
     }
@@ -83,7 +83,7 @@ export class CreateTfrResultDto {
         this.input[i].transactionType,
         resultType,
         this.input[i].amount.toString(),
-        this.input[i].period,
+        this.input[i].periodCode,
         this.input[i].userId
       ),)
       }

@@ -4,11 +4,13 @@ import {
   Required,
 } from "../../../../shared/dto-validator-class/src/decorators";
 import { ValidateClassProperty } from "../../../../shared/dto-validator-class/src/validators/ValidateClassProperty";
+import { generateRandomNumber } from "../../../../shared/util/generateOpt";
 import {
   createPeriodicResultInput,
 } from "../usecases/interfaces/tfr.interfaces";
 
 export class CreateTfrPeriodResultDto {
+  
   @Required({
     message: "veuillez entre le nom du résultat",
     Length: {
@@ -37,6 +39,8 @@ export class CreateTfrPeriodResultDto {
   })
   userId: number;
 
+  
+
   constructor(input: createPeriodicResultInput) {
     this.userId = input.userId;
     this.name = input.name;
@@ -45,7 +49,9 @@ export class CreateTfrPeriodResultDto {
   }
 
   getInput() {
-    return new PeriodicTfrResult(this.name, this.resultDate,this.status,this.userId);
+    const randomNumber=generateRandomNumber(6)
+    const code=`${randomNumber}-${this.resultDate}`
+    return new PeriodicTfrResult(this.name, this.resultDate,this.status,code,this.userId);
   }
 
   validate() {

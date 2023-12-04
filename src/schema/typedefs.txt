@@ -602,27 +602,39 @@ date:String!
 type Query{
     services(name:String!,userId:Int!,page:Int!):services!
     servicesPayment(input:ServicePaymentInput!):ServicePaymentResponse!
+}input GrossMarginInput {
+  chargeAccount: AccountInput!
+  profitAccount: AccountInput!
+  periodCode: String!
+  userId: Int!
 }
-input CreateValueAddedInput {
-  tfrResultType:Int!
-  account:Int!
+
+input AccountInput {
+  code: Float
   amount: Float!
-  transactionType:Int!
-  userId:Int!
-  period:String!
+  transactionType: TransactionTypeInput!
+}
+
+input TransactionTypeInput {
+  name: String!
+  val: Int!
 }
 
 
 
-type CreateValueAddedResponse{
+type CreateGrossMarginResponse{
     message: String!
 }
 
 
 
+
 type Mutation{
-    CreateTfrResult(input: [CreateValueAddedInput!]!):CreateValueAddedResponse!
+    createGrossMargin(input: GrossMarginInput!):CreateGrossMarginResponse!
 }
+
+
+
 
 
 
@@ -648,46 +660,13 @@ type Mutation{
     createPeriodicTfrResult(input: CreatePeriodicTfrResultInput!):CreateGrossMarginResponse!
 }
 
-input GrossMarginInput {
-  chargeAccount: AccountInput!
-  profitAccount: AccountInput!
-  period: String!
-  userId: Int!
-}
-
-input AccountInput {
-  code: Float
-  amount: Float!
-  transactionType: TransactionTypeInput!
-}
-
-input TransactionTypeInput {
-  name: String!
-  val: Int!
-}
-
-
-
-type CreateGrossMarginResponse{
-    message: String!
-}
-
-
-
-type Mutation{
-    createGrossMargin(input: GrossMarginInput!):CreateGrossMarginResponse!
-}
-
-
-
-# [ { "id": 0, "account": 80, "rowStatus": "ADD", "amount": "10", "transactionType": 1 }, 
-# { "id": 1, "account": "13", "rowStatus": "REMOVE", "amount": "8", "transactionType": 2 } ]
 
 
 type PeriodicTfrResult{
   name: String!
   resultDate: String!
   status: Int!
+  code:String!
   userId: Int!
 }
 
@@ -704,7 +683,28 @@ input PeriodicTfrInput{
 
 type Query{
     getPeriodicTfrResult(input:PeriodicTfrInput!):PeriodicTfrResultResponse!
-}input CreateTypeInput {
+}
+input CreateValueAddedInput {
+  tfrResultType:Int!
+  account:Int!
+  amount: Float!
+  transactionType:Int!
+  userId:Int!
+  periodCode:String!
+}
+
+
+
+type CreateValueAddedResponse{
+    message: String!
+}
+
+
+
+type Mutation{
+    CreateTfrResult(input: [CreateValueAddedInput!]!):CreateValueAddedResponse!
+}
+input CreateTypeInput {
   name: String!
   massId: Int!  
 }

@@ -16,17 +16,15 @@ export class TypeormTFRRepo implements ITFRRepo {
   return result
  }
 
-//  @catchError
+ @catchError
    async getPeriodTfrResult( input:IGetPeriodTfrResult ):Promise<ApiResponse<'periodicData',PeriodicTfrResult[]>> {
     const PAGE_SIZE = 10;
-
-
-    // let serviceName = name.toLowerCase();
 
     const [periodicData,count] = await AppDataSource.getRepository(PeriodicTfrResult)
       .createQueryBuilder("periodic_tfr_result")
       // .where("lower(service.name) LIKE :serviceName", { serviceName: `%${serviceName}%` })
       .where('periodic_tfr_result.userId = :userId', { userId:input.userId})
+      .orderBy('periodic_tfr_result.id','DESC')
       .skip((input.page - 1) * PAGE_SIZE)
       .take(PAGE_SIZE)
       .getManyAndCount();

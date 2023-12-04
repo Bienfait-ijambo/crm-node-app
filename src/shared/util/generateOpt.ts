@@ -1,4 +1,10 @@
-export function generateOTP(length:number): string {
+
+/**
+ * 
+ * @param length 
+ * @returns generated random string
+ */
+export function generateRandomNumber(length:number): string {
 
   let result = "";
   const characters = "0123456789";

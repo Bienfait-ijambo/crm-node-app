@@ -17,7 +17,7 @@ export class CreateTfrResultUseCase {
   async execute(input: ValueAddedInput[]) {
     const dto = new CreateTfrResultDto(input);
 
-    // const tfrData= getTfrResultTypeByCode(input[0].tfrResultType)
+    const tfrData= getTfrResultTypeByCode(input[0].tfrResultType)
     
     // if(typeof tfrData!=='undefined') 
     // throw new Error('Invalid TFR CODE')

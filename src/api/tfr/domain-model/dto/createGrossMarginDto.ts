@@ -38,31 +38,31 @@ export class CreateGrossMarginDto {
     return false;
   }
 
-  getTfrResultAccountInput() {
-    const { transactionType, amount } = this.getGrossMarginAmount();
-    return new TfrResultAccount(
-      80 as TfrAccount,
-      transactionType,
-      "MARGE_BRUTE",
-      amount.toString(),
-      this.input.period,
-      this.input.userId
-    );
-  }
+  // getTfrResultAccountInput() {
+  //   const { transactionType, amount } = this.getGrossMarginAmount();
+  //   return new TfrResultAccount(
+  //     80 as TfrAccount,
+  //     transactionType,
+  //     "MARGE_BRUTE",
+  //     amount.toString(),
+  //     this.input.period,
+  //     this.input.userId
+  //   );
+  // }
 
-  private getGrossMarginAmount() {
-    let sold = 0;
-    let transactionType: journalTransactionValType;
+  // private getGrossMarginAmount() {
+  //   let sold = 0;
+  //   let transactionType: journalTransactionValType;
 
-    if (this.input.chargeAccount.amount > this.input.profitAccount.amount) {
-      sold += this.input.chargeAccount.amount - this.input.profitAccount.amount;
-      transactionType = JournalTransactionType.DEBIT;
-    } else {
-      sold += this.input.profitAccount.amount - this.input.chargeAccount.amount;
-      transactionType = JournalTransactionType.CREDIT;
-    }
-    return { transactionType: transactionType, amount: sold };
-  }
+  //   if (this.input.chargeAccount.amount > this.input.profitAccount.amount) {
+  //     sold += this.input.chargeAccount.amount - this.input.profitAccount.amount;
+  //     transactionType = JournalTransactionType.DEBIT;
+  //   } else {
+  //     sold += this.input.profitAccount.amount - this.input.chargeAccount.amount;
+  //     transactionType = JournalTransactionType.CREDIT;
+  //   }
+  //   return { transactionType: transactionType, amount: sold };
+  // }
 
   getGrossMarginInput() {
     return [
@@ -72,7 +72,7 @@ export class CreateGrossMarginDto {
         this.input.chargeAccount.transactionType.val,
         "MARGE_BRUTE",
         this.input.chargeAccount.amount.toString(),
-        this.input.period,
+        this.input.periodCode,
         this.input.userId
       ),
       new Tfr(
@@ -80,7 +80,7 @@ export class CreateGrossMarginDto {
         this.input.profitAccount.transactionType.val,
         "MARGE_BRUTE",
         this.input.profitAccount.amount.toString(),
-        this.input.period,
+        this.input.periodCode,
         this.input.userId
       ),
     ];

@@ -1,0 +1,24 @@
+
+
+type PeriodicTfrResult{
+  name: String!
+  resultDate: String!
+  status: Int!
+  code:String!
+  userId: Int!
+}
+
+type PeriodicTfrResultResponse{
+   periodicData:[PeriodicTfrResult!]!
+   count:Int!
+   totalPages:Int!
+}
+
+input PeriodicTfrInput{
+    userId:Int!
+    page:Int!
+}
+
+type Query{
+    getPeriodicTfrResult(input:PeriodicTfrInput!):PeriodicTfrResultResponse!
+}

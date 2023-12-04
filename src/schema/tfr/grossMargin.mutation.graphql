@@ -1,7 +1,7 @@
 input GrossMarginInput {
   chargeAccount: AccountInput!
   profitAccount: AccountInput!
-  period: String!
+  periodCode: String!
   userId: Int!
 }
 
@@ -24,9 +24,13 @@ type CreateGrossMarginResponse{
 
 
 
+
 type Mutation{
     createGrossMargin(input: GrossMarginInput!):CreateGrossMarginResponse!
 }
+
+
+
 
 
 

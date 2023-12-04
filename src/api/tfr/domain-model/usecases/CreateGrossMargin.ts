@@ -14,7 +14,7 @@ export class CreateGrossMarginUseCase {
         
       const [result1]=await Promise.all([
         this.repo.createTFr(dto.getGrossMarginInput()),
-        this.repo.createTfrResulatAccount(dto.getTfrResultAccountInput()),
+        // this.repo.createTfrResulatAccount(dto.getTfrResultAccountInput()),
       ]);
 
       return result1;

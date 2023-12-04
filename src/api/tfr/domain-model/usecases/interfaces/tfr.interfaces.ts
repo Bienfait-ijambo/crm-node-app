@@ -23,7 +23,7 @@ export interface GrossMarginInput {
       val: journalTransactionValType;
     };
   };
-  period: string;
+  periodCode: string;
   userId: number;
 }
 
@@ -33,7 +33,7 @@ export interface ValueAddedInput {
   amount: number;
   transactionType: number;
   userId: number;
-  period: string;
+  periodCode: string;
 }
 
 export  interface IGetTfrDataInput{

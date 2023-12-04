@@ -2,7 +2,6 @@ import {
   OWNER_USER,
   User,
 } from "../../../../../entities/User";
-import { generateOTP } from "../../../../../shared/util/generateOpt";
 import { CreateUserInput } from "../usecases/interfaces/userInterfaces";
 import { userRole } from "./Role";
 import { generateUserCode } from "./generateUserCode";
