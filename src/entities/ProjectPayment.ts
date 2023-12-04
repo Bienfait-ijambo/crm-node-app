@@ -20,7 +20,7 @@ export class ProjectPayment {
 
 
    
-    @Column({ type: 'date', default: () => 'CURRENT_DATE' })
+    @Column({ type: 'date' })
     readonly createdAt?: Date;
   
     @UpdateDateColumn()

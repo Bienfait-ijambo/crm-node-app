@@ -50,7 +50,7 @@ import { TfrAccount } from "../shared/types/brandTypes";
     userId: number;
   
     @Index()
-    @Column({ type: "date", default: () => "CURRENT_DATE" })
+    @Column({ type: "date" })
     readonly createdAt?: Date;
   
     @UpdateDateColumn()

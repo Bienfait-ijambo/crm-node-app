@@ -27,7 +27,7 @@ export class ServicePayment {
   })
   status: number;
 
-  @Column({ type: "date", default: () => "CURRENT_DATE" })
+  @Column({ type: "date"})
   readonly createdAt?: Date;
 
   @UpdateDateColumn()

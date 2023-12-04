@@ -68,7 +68,7 @@
       "apollo": "nodemon --exec ts-node src/infrastructure/bootstrap/index.ts",
       "apollo-prod": "node build/infrastructure/bootstrap/index.js",
       "pm2": "pm2 start build/infrastructure/bootstrap/index.js",
-      "compile": "tsc",
+      "build": "tsc && npm run build-schema && npm run apollo-prod",
       "script-dev": "ts-node src/config/build-app.ts",
       "build-schema": "ts-node src/schema/buildSchema.ts",
       "db-seed-dev": "ts-node src/infrastructure/typeorm/seeds/db-seed.ts",

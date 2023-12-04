@@ -1,0 +1,1 @@
+{"version":3,"file":"filterTfrData.js","sourceRoot":"","sources":["../../../../../../../src/api/tfr/presentation/express/usecases/helpers/filterTfrData.ts"],"names":[],"mappings":";;;AAEA,SAAgB,aAAa,CAAC,KAAW,EAAC,UAA8B;IACpE,MAAM,YAAY,GAAG,KAAK,CAAC,MAAM,CAC/B,CAAC,IAAI,EAAE,EAAE,CAAC,IAAI,CAAC,UAAU,KAAK,UAAU,CACzC,CAAC;IACF,OAAO,YAAY,CAAC;AACtB,CAAC;AALH,sCAKG"}

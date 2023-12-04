@@ -16,8 +16,10 @@ function checkFileExists(path) {
 }
 
 function writeTypedefsToProduction() {
+
+  const rootPath = process.cwd();
   const filePath =
-    "C:/xampp/htdocs/projects/graphQL-projects/ubs-finance/build/schema/typedefs.txt";
+    `${rootPath}/build/schema/typedefs.txt`
   if (checkFileExists(filePath)) {
     //clean file into build folder
     cleanTypeDefsFile(filePath);

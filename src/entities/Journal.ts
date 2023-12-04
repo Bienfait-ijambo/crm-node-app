@@ -73,7 +73,7 @@ export class Journal  {
     userId: number
 
     @Index()
-    @Column({ type: 'date', default: () => 'CURRENT_DATE' })
+    @Column({ type: 'date' })
     readonly createdAt?: Date;
   
     @UpdateDateColumn()
@@ -86,9 +86,7 @@ export class Journal  {
     @ManyToOne(() => Account, (account) => account.journals)
     account: Account
 
-    // @ManyToOne(() => Project, (project) => project.journals)
-    // project: Project
-
+  
 
     @ManyToMany(() => Project)
     @JoinTable()
