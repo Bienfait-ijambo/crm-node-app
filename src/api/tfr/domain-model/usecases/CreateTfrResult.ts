@@ -17,7 +17,7 @@ export class CreateTfrResultUseCase {
   async execute(input: ValueAddedInput[]) {
     const dto = new CreateTfrResultDto(input);
 
-    const tfrData= getTfrResultTypeByCode(input[0].tfrResultType)
+    // const tfrData= getTfrResultTypeByCode(input[0].tfrResultType)
     
     // if(typeof tfrData!=='undefined') 
     // throw new Error('Invalid TFR CODE')
@@ -36,7 +36,7 @@ export class CreateTfrResultUseCase {
         // this.repo.createTFr(dto.getValueAddedInput('RESULTAT_AVANT_CONTRIBUTION_SUR_BENEFICE'))
         // this.repo.createTfrResulatAccount(dto.getTFRValueAddedResult(81 as TfrAccount,'RESULTAT_AVANT_CONTRIBUTION_SUR_BENEFICE'))
       
-        this.repo.createTFr(dto.getValueAddedInput('RESULTAT_NET'))
+        this.repo.createTFr(dto.getValueAddedInput())
         // this.repo.createTfrResulatAccount(dto.getTFRValueAddedResult(81 as TfrAccount,'RESULTAT_NET'))
       
     });

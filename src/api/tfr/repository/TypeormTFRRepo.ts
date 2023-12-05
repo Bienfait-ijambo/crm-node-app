@@ -66,7 +66,7 @@ export class TypeormTFRRepo implements ITFRRepo {
  
    const result = await AppDataSource.getRepository(Tfr)
    .createQueryBuilder("tfr")
-   .where("tfr.period =:period", { period: input.period })
+   .where("tfr.periodCode =:periodCode", { periodCode: input.periodCode })
    .andWhere("tfr.userId = :userId", { userId: input.userId })
    .getMany()
    return  result

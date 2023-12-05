@@ -12,12 +12,12 @@ import { AggregateTfrProcessedData } from "./helpers/aggregateProcessedTfrData";
 
 export class CreateTfrReport {
   private static getInputFromRequest(req: Request) {
-    const period = req.query?.period;
+    const period = req.query?.periodCode as string;
     const userId = req.query?.userId as string;
 
     const input = {
       userId: parseInt(userId),
-      period: period,
+      periodCode: period,
     } as IGetTfrDataInput;
     return input;
   }
@@ -51,7 +51,7 @@ export class CreateTfrReport {
 
       res.send({ message: "file created", status: 200, filePath: clientUrl });
     } catch (error) {
-      res.status(422).send({ message: "InvalidData" });
+      res.status(422).send({ message: `Invalid input : ${error.message}`, });
     }
   }
 

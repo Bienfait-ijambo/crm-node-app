@@ -5,6 +5,7 @@ import {
 } from "../../../../../../../entities/Journal";
 import { TFR_ACCOUNT, Tfr, resultTypeNameType } from "../../../../../../../entities/Trf";
 import { filterTfrData } from "../filterTfrData";
+import { ISold, ProcessTfrResultHelper } from "../aggregateProcessedTfrData";
 
 export interface ITfrDataFromDB {
   account: number;
@@ -30,7 +31,12 @@ export class ProcessGrossMargin {
     const transactions = [];
     let totalDebitAmount = 0;
     let totalCreditAmount = 0;
-    let sold = 0;
+    let sold= {
+      amount:'',
+      debit:false,
+      credit:false,
+    }
+ 
 
     for (let i = 0; i < array.length; i++) {
       if (array[i].transactionType === JournalTransactionType.DEBIT) {
@@ -38,7 +44,7 @@ export class ProcessGrossMargin {
           style: "non",
           resultType: "MARGE_BRUTE",
           account: array[i].account,
-          designation: "--- com",
+          accountName:array[i].accountName,
           debit: array[i].amount,
           credit: null,
         });
@@ -51,7 +57,7 @@ export class ProcessGrossMargin {
           style: "non",
           resultType: "MARGE_BRUTE",
           account: array[i].account,
-          designation: "--- com",
+          accountName:array[i].accountName,
           debit: null,
           credit: array[i].amount,
         });
@@ -62,24 +68,17 @@ export class ProcessGrossMargin {
     
     }
 
-      //
-      let transactionType: journalTransactionValType;
 
-      if (totalDebitAmount > totalCreditAmount) {
-        sold += totalDebitAmount - totalCreditAmount;
-        transactionType = JournalTransactionType.DEBIT;
-      } else {
-        sold += totalCreditAmount - totalDebitAmount;
-        transactionType = JournalTransactionType.CREDIT;
-      }
 
+    ProcessTfrResultHelper.calculateSold(totalCreditAmount, totalDebitAmount,sold)
+  
     transactions.push({
         style: "to_bold",
         resultType: "MARGE_BRUTE",
         account: TFR_ACCOUNT.MARGE_BRUTE,
-        designation: "MARGE BRUTE",
-        debit: sold,
-        credit: sold,
+        accountName: "MARGE BRUTE",
+        debit: !sold.debit ? sold.amount:'',
+        credit: !sold.credit ? sold.amount:'',
       })
 
 

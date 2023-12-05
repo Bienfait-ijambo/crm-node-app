@@ -2,13 +2,15 @@ import {
   journalTransactionNameType,
   journalTransactionValType,
 } from "../../../../../entities/Journal";
-import { TfrAccount } from "../../../../../shared/types/brandTypes";
+import { resultTypeNameType } from "../../../../../entities/Trf";
+import { AccountCODE, AccountName, TfrAccount } from "../../../../../shared/types/brandTypes";
 import { Maybe } from "../../../../../shared/types/myTypes";
 
 export interface GrossMarginInput {
   chargeAccount: {
     code: Maybe<number>;
     amount: number;
+    accountName:AccountName
     transactionType: {
       name: journalTransactionNameType;
       val: journalTransactionValType;
@@ -17,7 +19,7 @@ export interface GrossMarginInput {
   profitAccount: {
     code: Maybe<number>;
     amount: number;
-
+    accountName:AccountName
     transactionType: {
       name: journalTransactionNameType;
       val: journalTransactionValType;
@@ -28,16 +30,18 @@ export interface GrossMarginInput {
 }
 
 export interface ValueAddedInput {
-  tfrResultType: TfrAccount;
-  account: TfrAccount;
+  tfrResultType: AccountCODE;
+  account: AccountCODE;
+  resultType:Maybe<resultTypeNameType>
   amount: number;
+  accountName:AccountName
   transactionType: number;
   userId: number;
   periodCode: string;
 }
 
 export  interface IGetTfrDataInput{
-  period:string,
+  periodCode:string,
   userId:number
 }
 

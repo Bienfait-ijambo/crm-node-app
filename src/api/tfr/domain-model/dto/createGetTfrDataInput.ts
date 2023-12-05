@@ -12,15 +12,15 @@ export class CreateGetTFRDataInput{
       @Required({
         message: "veuillez entre la période",
         Length: {
-          min: 3,
-          max: 15,
+          min: 4,
+          max: 30,
         },
       })
-      period:string
+      periodCode:string
     
       constructor(input: IGetTfrDataInput) {
         this.userId=input.userId
-        this.period=input.period;
+        this.periodCode=input.periodCode;
   
       }
 
@@ -28,7 +28,7 @@ export class CreateGetTFRDataInput{
 
         return{
             userId:this.userId,
-            period:this.period
+            periodCode:this.periodCode
         }
       }
     

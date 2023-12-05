@@ -15,9 +15,9 @@ export class CreateJournalReport extends BuildJournalArray {
 
   async getPdf(req: Request, res: Response, next: NextFunction) {
     try {
-      const query = req.query as any;
+  
 
-      const {input,journalName} = this.getInput(query);
+      const {input,journalName} = this.getInput(req);
 
     
       const [journalData,htmlContent,headerData] = await Promise.all([
@@ -59,8 +59,8 @@ export class CreateJournalReport extends BuildJournalArray {
 
   
 
-  private getInput(query: any) {
-    const { startDate, endDate, page, userId, projectId, serviceId,journalName } = query;
+  private getInput(req: Request) {
+    const { startDate, endDate, page, userId, projectId, serviceId,journalName } = req.query as any;
 
     const input = {
       page: parseInt(page),

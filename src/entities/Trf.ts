@@ -6,7 +6,7 @@ import {
   DeleteDateColumn,
   Index,
 } from "typeorm";
-import { TfrAccount } from "../shared/types/brandTypes";
+import { AccountName, TfrAccount } from "../shared/types/brandTypes";
 
 export enum TFR_ACCOUNT {
   MARGE_BRUTE = 80,
@@ -90,6 +90,9 @@ export class Tfr {
    *  ResultType reference : @{resultTypeNameType}
    */
   @Column()
+  accountName: string;
+
+  @Column()
   resultType: string;
 
   @Column()
@@ -111,16 +114,18 @@ export class Tfr {
   constructor(
     account: number,
     transactionType: number,
-    resultType: resultTypeNameType,
+    accountName: AccountName,
+    resultType:resultTypeNameType,
     amount: string,
     periodCode: string,
     userId: number
   ) {
     this.account = account;
+    this.resultType=resultType
     this.transactionType = transactionType;
     this.amount = amount;
     this.userId = userId;
     this.periodCode = periodCode;
-    this.resultType = resultType;
+    this.accountName = accountName;
   }
 }

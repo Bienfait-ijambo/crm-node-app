@@ -612,6 +612,7 @@ type Query{
 input AccountInput {
   code: Float
   amount: Float!
+  accountName: String!
   transactionType: TransactionTypeInput!
 }
 
@@ -636,10 +637,6 @@ type Mutation{
 
 
 
-
-
-# [ { "id": 0, "account": 80, "rowStatus": "ADD", "amount": "10", "transactionType": 1 }, 
-# { "id": 1, "account": "13", "rowStatus": "REMOVE", "amount": "8", "transactionType": 2 } ]
 input CreatePeriodicTfrResultInput {
   name: String!
   resultDate: String!
@@ -688,6 +685,8 @@ input CreateValueAddedInput {
   tfrResultType:Int!
   account:Int!
   amount: Float!
+  accountName:String!
+  resultType:String!
   transactionType:Int!
   userId:Int!
   periodCode:String!

@@ -3,6 +3,8 @@ input CreateValueAddedInput {
   tfrResultType:Int!
   account:Int!
   amount: Float!
+  accountName:String!
+  resultType:String!
   transactionType:Int!
   userId:Int!
   periodCode:String!

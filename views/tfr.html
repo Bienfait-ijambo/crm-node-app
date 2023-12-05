@@ -64,7 +64,7 @@
         <tr style="font-weight:bold;background-color:#ccc;">
             <td width="5%">N° </td>
             <td width="5%">Compte</td>
-            <td width="30%">Designation</td>
+            <td width="40%">Designation</td>
             <td width="20%"> Debit (USD)</td>
             <td width="20%"> Credit (USD)</td>
         </tr>
@@ -72,9 +72,9 @@
         {{#each tfrData}}
 
         <tr id="{{this.style}}">
-            <td width="15%"></td>
+            <td width="5%"></td>
             <td width="5%" style="border-bottom: none;border-bottom-color: white;">{{ this.account }}</td>
-            <td width="5%">{{ this.designation }}</td>
+            <td width="40%">{{ this.accountName }}</td>
             <td width="20%"> {{ this.debit }} </td>
             <td width="20%"> {{ this.credit }}</td>
         </tr>

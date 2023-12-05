@@ -1,7 +1,7 @@
 import { JournalTransactionType } from "../../../../entities/Journal";
 import { TfrResultAccount } from "../../../../entities/TfrResultAccount";
 import { Tfr, resultTypeNameType } from "../../../../entities/Trf";
-import { TfrAccount } from "../../../../shared/types/brandTypes";
+import { AccountName, TfrAccount } from "../../../../shared/types/brandTypes";
 import { ValueAddedInput } from "../usecases/interfaces/tfr.interfaces";
 
 /**
@@ -74,14 +74,15 @@ export class CreateTfrResultDto {
       
     }
 
-  getValueAddedInput(resultType:resultTypeNameType):Tfr[] {
+  getValueAddedInput():Tfr[] {
     const input=[]
 
     for (let i = 0; i < this.input.length; i++) {
        input.push(new Tfr(
         this.input[i].account,
         this.input[i].transactionType,
-        resultType,
+        this.input[i].accountName,
+        this.input[i].resultType,
         this.input[i].amount.toString(),
         this.input[i].periodCode,
         this.input[i].userId

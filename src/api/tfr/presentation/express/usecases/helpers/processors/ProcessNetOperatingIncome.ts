@@ -1,5 +1,6 @@
 import { JournalTransactionType, journalTransactionValType } from "../../../../../../../entities/Journal";
 import { TFR_ACCOUNT, Tfr } from "../../../../../../../entities/Trf";
+import { ProcessTfrResultHelper } from "../aggregateProcessedTfrData";
 import { filterTfrData } from "../filterTfrData";
 
 
@@ -12,7 +13,11 @@ export class ProcessNetOperatingIncome{
         const transactions = [];
         let totalDebitAmount = 0;
         let totalCreditAmount = 0;
-        let sold = 0;
+        let sold = {
+          amount:'',
+          debit:false,
+          credit:false
+        };
     
         for (let i = 0; i < array.length; i++) {
           if (array[i].transactionType === JournalTransactionType.DEBIT) {
@@ -20,7 +25,7 @@ export class ProcessNetOperatingIncome{
               style: "non",
               resultType: "RESULTAT_NET_D_EXPLOITATION",
               account: array[i].account,
-              designation: "--- com",
+              accountName:array[i].accountName,
               debit: array[i].amount,
               credit: null,
             });
@@ -33,7 +38,7 @@ export class ProcessNetOperatingIncome{
               style: "non",
               resultType: "RESULTAT_NET_D_EXPLOITATION",
               account: array[i].account,
-              designation: "--- com",
+              accountName:array[i].accountName,
               debit: null,
               credit: array[i].amount,
             });
@@ -45,23 +50,15 @@ export class ProcessNetOperatingIncome{
         }
     
           //
-          let transactionType: journalTransactionValType;
-    
-          if (totalDebitAmount > totalCreditAmount) {
-            sold += totalDebitAmount - totalCreditAmount;
-            transactionType = JournalTransactionType.DEBIT;
-          } else {
-            sold += totalCreditAmount - totalDebitAmount;
-            transactionType = JournalTransactionType.CREDIT;
-          }
+          ProcessTfrResultHelper.calculateSold(totalCreditAmount, totalDebitAmount,sold)
     
         transactions.push({
             style: "to_bold",
             resultType: "RESULTAT_NET_D_EXPLOITATION",
             account: TFR_ACCOUNT.RESULTAT_NET_D_EXPLOITATION,
-            designation: "RESULTAT_NET_D_EXPLOITATION",
-            debit: sold,
-            credit: sold,
+            accountName: "RESULTAT_NET_D_EXPLOITATION",
+            debit: !sold.debit ? sold.amount:'',
+            credit: !sold.credit ? sold.amount:'',
           })
     
     
