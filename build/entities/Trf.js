@@ -60,13 +60,14 @@ exports.SOLD_STOCK = 60;
  * This table holds TfrResultAccountOperations
  */
 let Tfr = class Tfr {
-    constructor(account, transactionType, resultType, amount, period, userId) {
+    constructor(account, transactionType, accountName, resultType, amount, periodCode, userId) {
         this.account = account;
+        this.resultType = resultType;
         this.transactionType = transactionType;
         this.amount = amount;
         this.userId = userId;
-        this.period = period;
-        this.resultType = resultType;
+        this.periodCode = periodCode;
+        this.accountName = accountName;
     }
 };
 __decorate([
@@ -88,11 +89,15 @@ __decorate([
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
+], Tfr.prototype, "accountName", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
 ], Tfr.prototype, "resultType", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], Tfr.prototype, "period", void 0);
+], Tfr.prototype, "periodCode", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", Number)
@@ -112,7 +117,7 @@ __decorate([
 ], Tfr.prototype, "deletedAt", void 0);
 Tfr = __decorate([
     (0, typeorm_1.Entity)(),
-    __metadata("design:paramtypes", [Number, Number, String, String, String, Number])
+    __metadata("design:paramtypes", [Number, Number, String, String, String, String, Number])
 ], Tfr);
 exports.Tfr = Tfr;
 //# sourceMappingURL=Trf.js.map

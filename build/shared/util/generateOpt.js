@@ -1,7 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.generateOTP = void 0;
-function generateOTP(length) {
+exports.generateRandomNumber = void 0;
+/**
+ *
+ * @param length
+ * @returns generated random string
+ */
+function generateRandomNumber(length) {
     let result = "";
     const characters = "0123456789";
     let charactersLength = characters.length;
@@ -10,5 +15,5 @@ function generateOTP(length) {
     }
     return result;
 }
-exports.generateOTP = generateOTP;
+exports.generateRandomNumber = generateRandomNumber;
 //# sourceMappingURL=generateOpt.js.map

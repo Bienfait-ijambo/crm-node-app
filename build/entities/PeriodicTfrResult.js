@@ -12,8 +12,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PeriodicTfrResult = void 0;
 const typeorm_1 = require("typeorm");
 let PeriodicTfrResult = class PeriodicTfrResult {
-    constructor(name, resultDate, status, userId) {
+    constructor(name, resultDate, status, code, userId) {
         this.name = name;
+        this.code = code;
         this.resultDate = resultDate;
         this.status = status;
         this.userId = userId;
@@ -37,6 +38,10 @@ __decorate([
 ], PeriodicTfrResult.prototype, "status", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], PeriodicTfrResult.prototype, "code", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
     __metadata("design:type", Number)
 ], PeriodicTfrResult.prototype, "userId", void 0);
 __decorate([
@@ -54,7 +59,7 @@ __decorate([
 ], PeriodicTfrResult.prototype, "deletedAt", void 0);
 PeriodicTfrResult = __decorate([
     (0, typeorm_1.Entity)(),
-    __metadata("design:paramtypes", [String, String, Number, Number])
+    __metadata("design:paramtypes", [String, String, Number, String, Number])
 ], PeriodicTfrResult);
 exports.PeriodicTfrResult = PeriodicTfrResult;
 //# sourceMappingURL=PeriodicTfrResult.js.map

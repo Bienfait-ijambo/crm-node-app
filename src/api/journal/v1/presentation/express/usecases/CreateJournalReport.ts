@@ -39,6 +39,7 @@ export class CreateJournalReport extends BuildJournalArray {
       res.send({ message: "file created", status: 200, filePath: clientUrl });
       
     } catch (error) {
+   
       res.status(422).send({ message: "InvalidData" });
     }
   }

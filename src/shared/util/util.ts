@@ -1,4 +1,3 @@
-
 import multer = require("multer");
 import path = require("path");
 
@@ -33,11 +32,6 @@ export function checkPerformance(
   return descriptor;
 }
 
-export function todayDate() {
-  const date = new Date();
-  return date.toISOString().slice(0, 10);
-}
-
 export function getPreviousDate(currDate: Date, days: number): string {
   var currentDate = new Date(currDate);
   var previousDate1 = new Date(currentDate);
@@ -52,12 +46,12 @@ export const generateFileName = (originalFileName) => {
   return `${timestamp}-${randomNumber}${extension}`;
 };
 
-
-
-
-
-
-export async function moveFileToFolder( req: any, res: any, path: string, fieldName: string ) {
+export async function moveFileToFolder(
+  req: any,
+  res: any,
+  path: string,
+  fieldName: string
+) {
   const storage = await multer.diskStorage({
     destination: function (req, file: any, cb) {
       cb(null, path);
@@ -70,11 +64,20 @@ export async function moveFileToFolder( req: any, res: any, path: string, fieldN
   });
 
   const fileFilter = function (req: any, file: any, cb: any) {
-    const allowedFileTypes = ["image/gif", "image/png", "image/jpeg", "image/jpg"];
+    const allowedFileTypes = [
+      "image/gif",
+      "image/png",
+      "image/jpeg",
+      "image/jpg",
+    ];
     if (allowedFileTypes.includes(file.mimetype)) {
       cb(null, true);
     } else {
-      cb(new Error("Invalid file type. Only GIF, PNG, JPEG, and JPG files are allowed."));
+      cb(
+        new Error(
+          "Invalid file type. Only GIF, PNG, JPEG, and JPG files are allowed."
+        )
+      );
     }
   };
 
@@ -89,27 +92,42 @@ export async function moveFileToFolder( req: any, res: any, path: string, fieldN
   return upload;
 }
 
-
+export function formatAmountToUS(amount: number | string) {
+  let value = 0;
+  if (typeof amount === "string") {
+    value = parseFloat(amount);
+  } else {
+    value = amount;
+  }
+  const dollarUSLocale = Intl.NumberFormat("en-US");
+  return dollarUSLocale.format(value);
+}
 
 /**
- * 
- * @param file 
+ *
+ * @param file
  * @returns : file path located in views-folder
  */
-export function getViewPath(file: string){
+export function getViewPath(file: string) {
   const rootPath = process.cwd();
   const viewPath = path.join(rootPath, "views", file);
   return viewPath;
 }
 
-
 /**
- * 
- * @param n 
+ *
+ * @param n
  * @returns number
  * get one number after a point
  */
 export function truncNumber(n: number) {
   const truncatedNumber = Math.floor(n * 10) / 10;
   return truncatedNumber;
+}
+
+export function UpperCaseFirstLetter(str: string) {
+  if (typeof str !== "object") {
+    const lower = str.toLowerCase();
+    return lower.charAt(0).toUpperCase() + lower.slice(1);
+  }
 }

@@ -13,6 +13,7 @@ exports.CreateTfrPeriodResultDto = void 0;
 const PeriodicTfrResult_1 = require("../../../../entities/PeriodicTfrResult");
 const decorators_1 = require("../../../../shared/dto-validator-class/src/decorators");
 const ValidateClassProperty_1 = require("../../../../shared/dto-validator-class/src/validators/ValidateClassProperty");
+const generateOpt_1 = require("../../../../shared/util/generateOpt");
 class CreateTfrPeriodResultDto {
     constructor(input) {
         this.userId = input.userId;
@@ -21,7 +22,9 @@ class CreateTfrPeriodResultDto {
         this.resultDate = input.resultDate;
     }
     getInput() {
-        return new PeriodicTfrResult_1.PeriodicTfrResult(this.name, this.resultDate, this.status, this.userId);
+        const randomNumber = (0, generateOpt_1.generateRandomNumber)(6);
+        const code = `${randomNumber}-${this.resultDate}`;
+        return new PeriodicTfrResult_1.PeriodicTfrResult(this.name, this.resultDate, this.status, code, this.userId);
     }
     validate() {
         const validator = new ValidateClassProperty_1.ValidateClassProperty(this);

@@ -1,4 +1,6 @@
 import { JournalTransactionType } from "../../../../../../../entities/Journal";
+import { dateToIsoString } from "../../../../../../../shared/util/dateUtils";
+import { formatAmountToUS } from "../../../../../../../shared/util/util";
 import {  IJournalReportApiRes, IJournalTransaction } from "../interfaces/journalReportInterface";
 
 
@@ -10,9 +12,9 @@ export abstract  class BuildJournalArray {
         if (journal[index].transactionType === JournalTransactionType.DEBIT) {
             const debit = {
               accountCode: journal[index].account.code,
-              amount: journal[index].amount,
+              amount: formatAmountToUS(journal[index].amount),
               name: journal[index].account.name,
-              date:journal[index].createdAt
+              date:dateToIsoString(journal[index].createdAt)
             };
       
             const credit = {
@@ -24,6 +26,7 @@ export abstract  class BuildJournalArray {
             newJournalArray.push({
             idOp: journal[index].transactionCode,
               description: journal[index].description,
+              transactionCode:journal[index].transactionCode,
               operations: [{ debit: debit, credit: credit }],
             });
           }
@@ -40,13 +43,14 @@ export abstract  class BuildJournalArray {
       
             const credit = {
               accountCode: journal[index].account.code,
-              amount: journal[index].amount,
+              amount: formatAmountToUS(journal[index].amount),
               name: journal[index].account.name,
             };
       
             newJournalArray.push({
               idOp: journal[index].transactionCode,
               description: journal[index].description,
+              transactionCode:journal[index].transactionCode,
               operations: [{ debit: debit, credit: credit }],
             });
           }
@@ -66,7 +70,7 @@ export abstract  class BuildJournalArray {
     
             const debit = {
               accountCode: journal[index].account.code,
-              amount: journal[index].amount,
+              amount: formatAmountToUS(journal[index].amount),
               name: journal[index].account.name,
               date:journal[index].createdAt
             };
@@ -98,7 +102,7 @@ export abstract  class BuildJournalArray {
   
             const credit = {
               accountCode: journal[index].account.code,
-              amount: journal[index].amount,
+              amount: formatAmountToUS(journal[index].amount),
               name: journal[index].account.name,
             };
   

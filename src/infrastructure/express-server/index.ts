@@ -20,6 +20,7 @@ export const createExpressApp = async (
     res.send({ message: "Hello, you're up!" });
   });
   
+  app.use(cors())
 
   app.use(express.json());
 

@@ -4,6 +4,7 @@
 
 export interface IJournalTransaction {
     description: string;
+    transactionCode:string
     idOp:        string;
     operations:  Operation[];
 }

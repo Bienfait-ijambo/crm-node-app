@@ -25,7 +25,7 @@ class CreateTfrResultDto {
     }
     getTFRValueAddedResult(code, resultType) {
         const { transactionType, amount } = this.calculateValueAddedResult();
-        return new TfrResultAccount_1.TfrResultAccount(code, transactionType, resultType, amount.toString(), this.input[0].period, this.input[0].userId);
+        return new TfrResultAccount_1.TfrResultAccount(code, transactionType, resultType, amount.toString(), this.input[0].periodCode, this.input[0].userId);
     }
     calculateValueAddedResult() {
         let totalDebitAmount = 0;
@@ -50,10 +50,10 @@ class CreateTfrResultDto {
         }
         return { transactionType: transactionType, amount: sold };
     }
-    getValueAddedInput(resultType) {
+    getValueAddedInput() {
         const input = [];
         for (let i = 0; i < this.input.length; i++) {
-            input.push(new Trf_1.Tfr(this.input[i].account, this.input[i].transactionType, resultType, this.input[i].amount.toString(), this.input[i].period, this.input[i].userId));
+            input.push(new Trf_1.Tfr(this.input[i].account, this.input[i].transactionType, this.input[i].accountName, this.input[i].resultType, this.input[i].amount.toString(), this.input[i].periodCode, this.input[i].userId));
         }
         return input;
     }

@@ -3,6 +3,7 @@ import {  IBalanceReportInput, ICreateGeneralLedgerInput, IEarningVsExpenseInput
 import { Journal } from "../../../../entities/Journal";
 import { InsertResult } from "typeorm/query-builder/result/InsertResult";
 import { ApiResponse } from "../../../common/types/apiResponse";
+import { IDeleteTransaction } from "../domain-model/dto/DeleteTransactionDto";
 
 export interface IExpenseVsEarnings{
   totalExpenses: number;
@@ -32,6 +33,8 @@ export interface IJournalRepo{
   saveIntoJournalService(input:IJournalServiceInput): Promise<void>
 
   getTransactionDetailByAccount(input:ITransactionDetailInput)
+
+   deleteTransaction(input:IDeleteTransaction):Promise<any>
 
   /**
    * 

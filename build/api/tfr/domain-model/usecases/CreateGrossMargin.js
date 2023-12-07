@@ -23,7 +23,7 @@ class CreateGrossMarginUseCase {
             const result = yield data_source_1.AppDataSource.transaction(() => __awaiter(this, void 0, void 0, function* () {
                 const [result1] = yield Promise.all([
                     this.repo.createTFr(dto.getGrossMarginInput()),
-                    this.repo.createTfrResulatAccount(dto.getTfrResultAccountInput()),
+                    // this.repo.createTfrResulatAccount(dto.getTfrResultAccountInput()),
                 ]);
                 return result1;
             }));

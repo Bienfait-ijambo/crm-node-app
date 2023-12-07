@@ -31,15 +31,14 @@ class TypeormTFRRepo {
             return result;
         });
     }
-    //  @catchError
     getPeriodTfrResult(input) {
         return __awaiter(this, void 0, void 0, function* () {
             const PAGE_SIZE = 10;
-            // let serviceName = name.toLowerCase();
             const [periodicData, count] = yield data_source_1.AppDataSource.getRepository(PeriodicTfrResult_1.PeriodicTfrResult)
                 .createQueryBuilder("periodic_tfr_result")
                 // .where("lower(service.name) LIKE :serviceName", { serviceName: `%${serviceName}%` })
                 .where('periodic_tfr_result.userId = :userId', { userId: input.userId })
+                .orderBy('periodic_tfr_result.id', 'DESC')
                 .skip((input.page - 1) * PAGE_SIZE)
                 .take(PAGE_SIZE)
                 .getManyAndCount();
@@ -71,7 +70,7 @@ class TypeormTFRRepo {
         return __awaiter(this, void 0, void 0, function* () {
             const result = yield data_source_1.AppDataSource.getRepository(Trf_1.Tfr)
                 .createQueryBuilder("tfr")
-                .where("tfr.period =:period", { period: input.period })
+                .where("tfr.periodCode =:periodCode", { periodCode: input.periodCode })
                 .andWhere("tfr.userId = :userId", { userId: input.userId })
                 .getMany();
             return result;
@@ -84,6 +83,12 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], TypeormTFRRepo.prototype, "createPeriodicTfrResult", null);
+__decorate([
+    CachError_1.catchError,
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], TypeormTFRRepo.prototype, "getPeriodTfrResult", null);
 __decorate([
     CachError_1.catchError,
     __metadata("design:type", Function),

@@ -100,8 +100,9 @@ __decorate([
     __metadata("design:type", Number)
 ], Journal.prototype, "userId", void 0);
 __decorate([
-    (0, typeorm_1.Index)(),
-    (0, typeorm_1.Column)({ type: 'date' }),
+    (0, typeorm_1.CreateDateColumn)({
+        type: 'timestamp',
+    }),
     __metadata("design:type", Date)
 ], Journal.prototype, "createdAt", void 0);
 __decorate([

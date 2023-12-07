@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProcessNetResult = void 0;
 const Journal_1 = require("../../../../../../../entities/Journal");
 const Trf_1 = require("../../../../../../../entities/Trf");
+const aggregateProcessedTfrData_1 = require("../aggregateProcessedTfrData");
 const filterTfrData_1 = require("../filterTfrData");
 class ProcessNetResult {
     static getData(TfrData) {
@@ -10,14 +11,18 @@ class ProcessNetResult {
         const transactions = [];
         let totalDebitAmount = 0;
         let totalCreditAmount = 0;
-        let sold = 0;
+        let sold = {
+            amount: '',
+            debit: false,
+            credit: false
+        };
         for (let i = 0; i < array.length; i++) {
             if (array[i].transactionType === Journal_1.JournalTransactionType.DEBIT) {
                 transactions.push({
                     style: "non",
                     resultType: "RESULTAT_NET",
                     account: array[i].account,
-                    designation: "--- com",
+                    accountName: array[i].accountName,
                     debit: array[i].amount,
                     credit: null,
                 });
@@ -28,30 +33,21 @@ class ProcessNetResult {
                     style: "non",
                     resultType: "RESULTAT_NET",
                     account: array[i].account,
-                    designation: "--- com",
+                    accountName: array[i].accountName,
                     debit: null,
                     credit: array[i].amount,
                 });
                 totalCreditAmount += parseFloat(array[i].amount);
             }
         }
-        //
-        let transactionType;
-        if (totalDebitAmount > totalCreditAmount) {
-            sold += totalDebitAmount - totalCreditAmount;
-            transactionType = Journal_1.JournalTransactionType.DEBIT;
-        }
-        else {
-            sold += totalCreditAmount - totalDebitAmount;
-            transactionType = Journal_1.JournalTransactionType.CREDIT;
-        }
+        aggregateProcessedTfrData_1.ProcessTfrResultHelper.calculateSold(totalCreditAmount, totalDebitAmount, sold);
         transactions.push({
             style: "to_bold",
             resultType: "RESULTAT_NET",
             account: Trf_1.TFR_ACCOUNT.RESULTAT_NET,
-            designation: "RESULTAT_NET",
-            debit: sold,
-            credit: sold,
+            accountName: "RESULTAT_NET",
+            debit: !sold.debit ? sold.amount : '',
+            credit: !sold.credit ? sold.amount : '',
         });
         return transactions;
     }

@@ -23,20 +23,8 @@ class CreateTfrResultUseCase {
     execute(input) {
         return __awaiter(this, void 0, void 0, function* () {
             const dto = new createTfrResultDto_1.CreateTfrResultDto(input);
-            // const tfrData= getTfrResultTypeByCode(input[0].tfrResultType)
-            // if(typeof tfrData!=='undefined') 
-            // throw new Error('Invalid TFR CODE')
             yield data_source_1.AppDataSource.transaction(() => __awaiter(this, void 0, void 0, function* () {
-                // this.repo.createTFr(dto.getValueAddedInput('VALEUR_AJOUTER'))
-                // this.repo.createTfrResulatAccount(dto.getTFRValueAddedResult(81 as TfrAccount,'VALEUR_AJOUTER'))
-                // this.repo.createTFr(dto.getValueAddedInput('RESULTAT_BRUT_D_EXPLOITATION'))
-                // this.repo.createTfrResulatAccount(dto.getTFRValueAddedResult(81 as TfrAccount,'RESULTAT_BRUT_D_EXPLOITATION'))
-                // this.repo.createTFr(dto.getValueAddedInput('RESULTAT_NET_D_EXPLOITATION'))
-                // this.repo.createTfrResulatAccount(dto.getTFRValueAddedResult(81 as TfrAccount,'RESULTAT_NET_D_EXPLOITATION'))
-                // this.repo.createTFr(dto.getValueAddedInput('RESULTAT_AVANT_CONTRIBUTION_SUR_BENEFICE'))
-                // this.repo.createTfrResulatAccount(dto.getTFRValueAddedResult(81 as TfrAccount,'RESULTAT_AVANT_CONTRIBUTION_SUR_BENEFICE'))
-                this.repo.createTFr(dto.getValueAddedInput('RESULTAT_NET'));
-                // this.repo.createTfrResulatAccount(dto.getTFRValueAddedResult(81 as TfrAccount,'RESULTAT_NET'))
+                this.repo.createTFr(dto.getValueAddedInput());
             }));
         });
     }

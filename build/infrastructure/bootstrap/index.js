@@ -43,14 +43,10 @@ const express_server_1 = require("../express-server");
 const graphql_server_1 = require("../graphql-server");
 const app = (0, express_1.default)();
 const bootStrap = () => __awaiter(void 0, void 0, void 0, function* () {
-    // try {
     const Dbconnection = yield (0, connection_1.default)();
     const { apolloServer, httpServer } = yield (0, graphql_server_1.createApolloServer)(app, Dbconnection);
     yield (0, express_server_1.createExpressApp)(apolloServer, app);
     (0, express_server_1.runHttpServer)(httpServer);
-    // } catch (error) {
-    //   console.log("Error while bootstraping the app....",error.message);
-    // }
 });
 bootStrap();
 //# sourceMappingURL=index.js.map

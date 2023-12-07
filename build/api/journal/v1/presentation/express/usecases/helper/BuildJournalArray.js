@@ -2,14 +2,16 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BuildJournalArray = void 0;
 const Journal_1 = require("../../../../../../../entities/Journal");
+const dateUtils_1 = require("../../../../../../../shared/util/dateUtils");
+const util_1 = require("../../../../../../../shared/util/util");
 class BuildJournalArray {
     getDebitOperation(journal, index, newJournalArray) {
         if (journal[index].transactionType === Journal_1.JournalTransactionType.DEBIT) {
             const debit = {
                 accountCode: journal[index].account.code,
-                amount: journal[index].amount,
+                amount: (0, util_1.formatAmountToUS)(journal[index].amount),
                 name: journal[index].account.name,
-                date: journal[index].createdAt
+                date: (0, dateUtils_1.dateToIsoString)(journal[index].createdAt)
             };
             const credit = {
                 accountCode: "",
@@ -19,6 +21,7 @@ class BuildJournalArray {
             newJournalArray.push({
                 idOp: journal[index].transactionCode,
                 description: journal[index].description,
+                transactionCode: journal[index].transactionCode,
                 operations: [{ debit: debit, credit: credit }],
             });
         }
@@ -33,12 +36,13 @@ class BuildJournalArray {
             };
             const credit = {
                 accountCode: journal[index].account.code,
-                amount: journal[index].amount,
+                amount: (0, util_1.formatAmountToUS)(journal[index].amount),
                 name: journal[index].account.name,
             };
             newJournalArray.push({
                 idOp: journal[index].transactionCode,
                 description: journal[index].description,
+                transactionCode: journal[index].transactionCode,
                 operations: [{ debit: debit, credit: credit }],
             });
         }
@@ -51,7 +55,7 @@ class BuildJournalArray {
         if (journal[index].transactionType === Journal_1.JournalTransactionType.DEBIT) {
             const debit = {
                 accountCode: journal[index].account.code,
-                amount: journal[index].amount,
+                amount: (0, util_1.formatAmountToUS)(journal[index].amount),
                 name: journal[index].account.name,
                 date: journal[index].createdAt
             };
@@ -77,7 +81,7 @@ class BuildJournalArray {
             };
             const credit = {
                 accountCode: journal[index].account.code,
-                amount: journal[index].amount,
+                amount: (0, util_1.formatAmountToUS)(journal[index].amount),
                 name: journal[index].account.name,
             };
             const updateOperation = getOperation[0].operations.push({

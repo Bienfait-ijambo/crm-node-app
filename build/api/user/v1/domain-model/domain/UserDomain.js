@@ -28,7 +28,7 @@ class UserDomain {
     static createUserInput(input) {
         const email = new Email_1.Email(input.email);
         const userCode = (0, generateUserCode_1.generateUserCode)(email.getEmail());
-        const otp = (0, generateOpt_1.generateOTP)(6);
+        const otp = (0, generateOpt_1.generateRandomNumber)(6);
         const userProviderId = '';
         const emailIsVerified = true;
         return new User_1.User('-', email.getEmail(), Role_1.userRole.OWNER, '', input.password, userCode, otp, emailIsVerified, input.terms, User_1.OWNER_USER.id, userProviderId);

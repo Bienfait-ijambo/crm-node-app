@@ -56,15 +56,15 @@
             <td width="15%">DATE</td>
             <td width="5%">DEBIT</td>
             <td width="5%">CREDIT</td>
-            <td>LIBELLE</td>
-            <td width="20%"> DEBIT (USD)</td>
-            <td width="20%"> CREDIT  (USD)</td>
+            <td width="45%">LIBELLE</td>
+            <td width="15%"> DEBIT (USD)</td>
+            <td width="15%"> CREDIT (USD)</td>
         </tr>
 
         {{#each journalData}}
         {{#each this.operations}}
         <tr style="border-bottom: none;">
-            <td width="10%">{{this.debit.date}}</td>
+            <td width="15%">{{this.debit.date}}</td>
 
             <td width="5%">{{this.debit.accountCode}}</td>
             <td width="5%">{{this.credit.accountCode}}</td>
@@ -74,11 +74,14 @@
         </tr>
         
         {{/each }}
-        <tr  style="font-style: italic;background-color:#ccc;border: 2px solid black;">
-            <td width="10%"></td>
+        <tr  style="background-color:#e7e7e7;border: 2px solid black;">
+            <td width="15%"></td>
             <td width="5%"></td>
             <td width="5%"></td>
-            <td>{{this.description}}</td>
+            <td>{{this.description}} 
+                <br/>
+               <b> <span style="color: red;">{{this.transactionCode}}</span></b>
+            </td>
             <td width="20%"> </td>
             <td width="20%"> </td>
         </tr>

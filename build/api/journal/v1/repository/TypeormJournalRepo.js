@@ -197,6 +197,19 @@ class TypeormJournalRepo {
             return { journals };
         });
     }
+    deleteTransaction(input) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const result = yield data_source_1.AppDataSource.getRepository(Journal_1.Journal)
+                .createQueryBuilder('journal')
+                .softDelete()
+                .where("transactionCode = :transactionCode", {
+                transactionCode: input.transactionCode,
+            })
+                .andWhere("userId = :userId", { userId: input.userId })
+                .execute();
+            return result;
+        });
+    }
     EditTransaction(input) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = input, restInput = __rest(input, ["id"]);
@@ -337,6 +350,12 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], TypeormJournalRepo.prototype, "GetJournalPdfData", null);
+__decorate([
+    CachError_1.catchError,
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], TypeormJournalRepo.prototype, "deleteTransaction", null);
 __decorate([
     CachError_1.catchError,
     __metadata("design:type", Function),

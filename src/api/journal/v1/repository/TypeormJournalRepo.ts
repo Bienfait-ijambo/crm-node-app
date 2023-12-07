@@ -19,6 +19,7 @@ import { enumMassType } from "../../../../entities/Mass";
 import { getPreviousDate } from "../../../../shared/util/util";
 import { Account } from "../../../../entities/Account";
 import { ApiResponse } from "../../../common/types/apiResponse";
+import { IDeleteTransaction } from "../domain-model/dto/DeleteTransactionDto";
 
 export class TypeormJournalRepo implements IJournalRepo {
   private db = new DB<Journal>(Journal);
@@ -49,7 +50,6 @@ export class TypeormJournalRepo implements IJournalRepo {
   @catchError
   async getGeneralLedger(input: ICreateGeneralLedgerInput) {
     const PAGE_SIZE = 10;
-
 
     const result = await AppDataSource.getRepository(Journal)
       .createQueryBuilder("journal")
@@ -99,7 +99,9 @@ export class TypeormJournalRepo implements IJournalRepo {
   }
 
   @catchError
-  async getBalance( input: IBalanceReportInput ): Promise<ApiResponse<"journals", Journal[]>> {
+  async getBalance(
+    input: IBalanceReportInput
+  ): Promise<ApiResponse<"journals", Journal[]>> {
     const PAGE_SIZE = 10;
     const result: Journal[] = await AppDataSource.getRepository(Journal)
       .createQueryBuilder("journal")
@@ -140,7 +142,7 @@ export class TypeormJournalRepo implements IJournalRepo {
   @catchError
   async GetTransactions(
     input: IJournalSearchInput
-  ): Promise<ApiResponse<'journals',Journal[]>> {
+  ): Promise<ApiResponse<"journals", Journal[]>> {
     const PAGE_SIZE = 10;
 
     // let projectName = name.toLowerCase();
@@ -198,6 +200,18 @@ export class TypeormJournalRepo implements IJournalRepo {
     const [journals] = await query.getManyAndCount();
 
     return { journals };
+  }
+  @catchError
+  async deleteTransaction(input: IDeleteTransaction) {
+    const result = await AppDataSource.getRepository(Journal)
+      .createQueryBuilder('journal')
+      .softDelete()
+      .where("transactionCode = :transactionCode", {
+        transactionCode: input.transactionCode,
+      })
+      .andWhere("userId = :userId", { userId: input.userId })
+      .execute();
+    return result;
   }
 
   @catchError

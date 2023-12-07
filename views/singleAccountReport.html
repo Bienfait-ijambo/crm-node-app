@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Journal</title>
+</head>
+<style>
+    /* html {
+  zoom: 0.55;
+} */
+    #makeBolder {
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    #contact {
+        font-size: 18px;
+        font-weight: bold;
+        position: relative;
+        top: -10px;
+    }
+
+    #enterpriseName {
+        position: relative;
+        top: -5px;
+    }
+
+    .titleHeader {
+        font-weight: bold;
+        font-size: 18px;
+
+    }
+</style>
+
+<body>
+
+    <div align="center">
+        <div id="header-content">
+            <span><img width="105" src="{{this.headerData.image}}" alt="logo" /></span>
+
+            <div>
+                <h2 id="enterpriseName">{{this.headerData.name}}</h2>
+                <div id="contact">
+                    <span>Tel : {{this.headerData.telephone}}</span> / <span><a
+                            href="#">{{this.headerData.email}}</a></span>
+                </div>
+
+            </div>
+        </div>
+        <hr />
+    </div>
+    <br />
+    <div id="makeBolder"> Compte :40 Fournisseurs <br/>
+        Date : {{this.date.startDate}} - {{this.date.endDate}}</div>
+
+
+
+    </table><br />
+
+    <table style="font-size: 18px;" border="1" cellspacing="0" cellpadding="5" width="100%">
+        <tr style="background-color: aliceblue; font-weight: bolder">
+            <td colspan="3">DEBIT</td>
+            <td colspan="3">CREDIT</td>
+        </tr>
+
+        <tr class="bg-grey-5" style="font-weight: bolder">
+            <td>Date</td>
+
+            <td>Libellé</td>
+
+            <td>Montant</td>
+            <td>Date</td>
+            <td>Libellé</td>
+            <td>Montant</td>
+
+        </tr>
+
+        {{#each accountData}}
+        <tr>
+            <td> {{this.debit.date}} </td>
+            <td>{{this.debit.description}}</td>
+            <td>{{this.debit.amount}}</td>
+            <td> {{this.credit.date}} </td>
+            <td>{{this.credit.description}}</td>
+            <td>{{this.credit.amount}}</td>
+        </tr>
+        {{/each}}
+
+
+        {{#each accountSold}}
+        <tr style="font-weight: bolder; color: red">
+            <td>SOLDE</td>
+            <td>{{this.debit.amount}}</td>
+
+            <td>
+
+            </td>
+            <td>
+
+            </td>
+            <td></td>
+            <td>{{this.credit.amount}}</td>
+        </tr>
+        {{/each}}
+    </table>
+
+
+</body>
+
+</html>

@@ -22,6 +22,7 @@ const createExpressApp = (server, app) => __awaiter(void 0, void 0, void 0, func
     app.get("/api/v1/ready", (req, res) => {
         res.send({ message: "Hello, you're up!" });
     });
+    app.use(cors());
     app.use(express_1.default.json());
     app.use(express_1.default.static("public"));
     // Disable ETag header

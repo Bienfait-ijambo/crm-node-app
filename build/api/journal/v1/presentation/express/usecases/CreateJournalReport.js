@@ -22,8 +22,7 @@ class CreateJournalReport extends BuildJournalArray_1.BuildJournalArray {
     getPdf(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const query = req.query;
-                const { input, journalName } = this.getInput(query);
+                const { input, journalName } = this.getInput(req);
                 const [journalData, htmlContent, headerData] = yield Promise.all([
                     this.getJournalData(input),
                     (0, getHtmlContent_1.getHtmlContent)((0, util_1.getViewPath)("journal.html")),
@@ -58,8 +57,8 @@ class CreateJournalReport extends BuildJournalArray_1.BuildJournalArray {
             return result;
         });
     }
-    getInput(query) {
-        const { startDate, endDate, page, userId, projectId, serviceId, journalName } = query;
+    getInput(req) {
+        const { startDate, endDate, page, userId, projectId, serviceId, journalName } = req.query;
         const input = {
             page: parseInt(page),
             userId: parseInt(userId),

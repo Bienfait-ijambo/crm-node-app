@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AggregateTfrProcessedData = void 0;
+exports.ProcessTfrResultHelper = exports.AggregateTfrProcessedData = void 0;
 const ProcessNetOperatingIncome_1 = require("./processors/ProcessNetOperatingIncome");
 const processGrossMarginData_1 = require("./processors/processGrossMarginData");
 const processGrossOperatingIncome_1 = require("./processors/processGrossOperatingIncome");
@@ -10,6 +10,11 @@ const processValueAddedData_1 = require("./processors/processValueAddedData");
 class AggregateTfrProcessedData {
     constructor(array) {
         this.array = array;
+        this.sold = {
+            amount: '',
+            debit: false,
+            credit: false,
+        };
         this.array = array;
     }
     execute() {
@@ -30,4 +35,20 @@ class AggregateTfrProcessedData {
     }
 }
 exports.AggregateTfrProcessedData = AggregateTfrProcessedData;
+class ProcessTfrResultHelper {
+    static calculateSold(totalDebitAmount, totalCreditAmount, sold) {
+        // let transactionType: journalTransactionValType;
+        if (totalDebitAmount > totalCreditAmount) {
+            sold.amount += totalDebitAmount - totalCreditAmount;
+            sold.debit = true;
+            // transactionType = JournalTransactionType.DEBIT;
+        }
+        else {
+            sold.amount += totalCreditAmount - totalDebitAmount;
+            sold.credit = true;
+            // transactionType = JournalTransactionType.CREDIT;
+        }
+    }
+}
+exports.ProcessTfrResultHelper = ProcessTfrResultHelper;
 //# sourceMappingURL=aggregateProcessedTfrData.js.map

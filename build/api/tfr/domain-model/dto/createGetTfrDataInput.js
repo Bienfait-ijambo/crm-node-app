@@ -15,12 +15,12 @@ const ValidateClassProperty_1 = require("../../../../shared/dto-validator-class/
 class CreateGetTFRDataInput {
     constructor(input) {
         this.userId = input.userId;
-        this.period = input.period;
+        this.periodCode = input.periodCode;
     }
     getInput() {
         return {
             userId: this.userId,
-            period: this.period
+            periodCode: this.periodCode
         };
     }
     validate() {
@@ -39,11 +39,11 @@ __decorate([
     (0, decorators_1.Required)({
         message: "veuillez entre la période",
         Length: {
-            min: 3,
-            max: 15,
+            min: 4,
+            max: 30,
         },
     }),
     __metadata("design:type", String)
-], CreateGetTFRDataInput.prototype, "period", void 0);
+], CreateGetTFRDataInput.prototype, "periodCode", void 0);
 exports.CreateGetTFRDataInput = CreateGetTFRDataInput;
 //# sourceMappingURL=createGetTfrDataInput.js.map

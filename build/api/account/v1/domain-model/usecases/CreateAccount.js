@@ -24,9 +24,11 @@ class CreateAccountUseCase {
                 const accountExist = yield this.accountRepo.findAccountByCode(input.code, input.userId);
                 if (accountExist !== null)
                     throw new Error('Vous avez déjà enregistré ce compte !');
-                const result = yield this.accountRepo.createAccount(dto.getInput());
-                yield this.saveAccountInAggregateTable(result.id, input);
-                return result;
+                const [accountResult, _] = yield Promise.all([
+                    this.accountRepo.createAccount(dto.getInput()),
+                    this.saveAccountInAggregateTable(result.id, input)
+                ]);
+                return accountResult;
             }));
             return result;
         });

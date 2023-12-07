@@ -22,11 +22,11 @@ const aggregateProcessedTfrData_1 = require("./helpers/aggregateProcessedTfrData
 class CreateTfrReport {
     static getInputFromRequest(req) {
         var _a, _b;
-        const period = (_a = req.query) === null || _a === void 0 ? void 0 : _a.period;
+        const period = (_a = req.query) === null || _a === void 0 ? void 0 : _a.periodCode;
         const userId = (_b = req.query) === null || _b === void 0 ? void 0 : _b.userId;
         const input = {
             userId: parseInt(userId),
-            period: period,
+            periodCode: period,
         };
         return input;
     }
@@ -50,7 +50,7 @@ class CreateTfrReport {
                 res.send({ message: "file created", status: 200, filePath: clientUrl });
             }
             catch (error) {
-                res.status(422).send({ message: "InvalidData" });
+                res.status(422).send({ message: `Invalid input : ${error.message}`, });
             }
         });
     }

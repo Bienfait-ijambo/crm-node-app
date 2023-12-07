@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.truncNumber = exports.getViewPath = exports.moveFileToFolder = exports.generateFileName = exports.getPreviousDate = exports.todayDate = exports.checkPerformance = exports.generateCode = void 0;
+exports.UpperCaseFirstLetter = exports.truncNumber = exports.getViewPath = exports.formatAmountToUS = exports.moveFileToFolder = exports.generateFileName = exports.getPreviousDate = exports.checkPerformance = exports.generateCode = void 0;
 const multer = require("multer");
 const path = require("path");
 /**
@@ -40,11 +40,6 @@ function checkPerformance(target, propertyKey, descriptor) {
     return descriptor;
 }
 exports.checkPerformance = checkPerformance;
-function todayDate() {
-    const date = new Date();
-    return date.toISOString().slice(0, 10);
-}
-exports.todayDate = todayDate;
 function getPreviousDate(currDate, days) {
     var currentDate = new Date(currDate);
     var previousDate1 = new Date(currentDate);
@@ -71,7 +66,12 @@ function moveFileToFolder(req, res, path, fieldName) {
             },
         });
         const fileFilter = function (req, file, cb) {
-            const allowedFileTypes = ["image/gif", "image/png", "image/jpeg", "image/jpg"];
+            const allowedFileTypes = [
+                "image/gif",
+                "image/png",
+                "image/jpeg",
+                "image/jpg",
+            ];
             if (allowedFileTypes.includes(file.mimetype)) {
                 cb(null, true);
             }
@@ -90,6 +90,18 @@ function moveFileToFolder(req, res, path, fieldName) {
     });
 }
 exports.moveFileToFolder = moveFileToFolder;
+function formatAmountToUS(amount) {
+    let value = 0;
+    if (typeof amount === "string") {
+        value = parseFloat(amount);
+    }
+    else {
+        value = amount;
+    }
+    const dollarUSLocale = Intl.NumberFormat("en-US");
+    return dollarUSLocale.format(value);
+}
+exports.formatAmountToUS = formatAmountToUS;
 /**
  *
  * @param file
@@ -112,4 +124,11 @@ function truncNumber(n) {
     return truncatedNumber;
 }
 exports.truncNumber = truncNumber;
+function UpperCaseFirstLetter(str) {
+    if (typeof str !== "object") {
+        const lower = str.toLowerCase();
+        return lower.charAt(0).toUpperCase() + lower.slice(1);
+    }
+}
+exports.UpperCaseFirstLetter = UpperCaseFirstLetter;
 //# sourceMappingURL=util.js.map

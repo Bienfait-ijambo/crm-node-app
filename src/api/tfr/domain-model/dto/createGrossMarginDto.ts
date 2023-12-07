@@ -1,7 +1,4 @@
-import {
-  JournalTransactionType,
-  journalTransactionValType,
-} from "../../../../entities/Journal";
+
 import { SOLD_MERCHENDISE, SOLD_STOCK, Tfr } from "../../../../entities/Trf";
 import { GrossMarginInput } from "../usecases/interfaces/tfr.interfaces";
 

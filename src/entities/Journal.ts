@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, UpdateDateColumn, DeleteDateColumn, JoinTable, ManyToMany, ManyToOne, Index } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, UpdateDateColumn, DeleteDateColumn, JoinTable, ManyToMany, ManyToOne, Index, CreateDateColumn } from "typeorm"
 import { Account } from "./Account"
 import { Project } from "./Project"
 import { Service } from "./Service"
@@ -69,11 +69,14 @@ export class Journal  {
     @Column()
     transactionCode: string
 
+    
+
     @Column()
     userId: number
 
-    @Index()
-    @Column({ type: 'date' })
+    @CreateDateColumn({
+      type: 'timestamp',
+    })
     readonly createdAt?: Date;
   
     @UpdateDateColumn()

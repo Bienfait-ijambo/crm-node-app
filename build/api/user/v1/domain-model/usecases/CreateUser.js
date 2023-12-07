@@ -67,7 +67,7 @@ class CreateUserUseCase {
     createUserProviderId(userProviderId) {
         const timestamp = Date.now();
         const randomNumber = Math.floor(Math.random() * 1000000);
-        const randomCode = (0, generateOpt_1.generateOTP)(6);
+        const randomCode = (0, generateOpt_1.generateRandomNumber)(6);
         return `${timestamp}-${randomNumber}-${userProviderId}-${randomCode}`;
     }
 }
