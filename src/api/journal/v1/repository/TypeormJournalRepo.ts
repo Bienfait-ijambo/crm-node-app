@@ -228,9 +228,8 @@ export class TypeormJournalRepo implements IJournalRepo {
 
   @catchError
   async getTransactionDetailByAccount(input: ITransactionDetailInput) {
-    const PAGE_SIZE = 10;
-
-    const query = AppDataSource.getRepository(Journal)
+    
+    const result = await AppDataSource.getRepository(Journal)
       .createQueryBuilder("journal")
       .select([
         "journal.id",
@@ -239,34 +238,18 @@ export class TypeormJournalRepo implements IJournalRepo {
         "journal.description",
         "journal.createdAt",
       ])
-      .where("journal.accountId = :accountId", { accountId: input.accountId })
-      .andWhere("journal.userId = :userId", { userId: input.userId })
+      .where("journal.userId = :userId", { userId: input.userId })
+      .andWhere("journal.accountId = :accountId", { accountId: input.accountId })
       .andWhere("journal.createdAt BETWEEN :date1 AND :date2", {
         date1: input.startDate,
         date2: input.endDate,
-      });
-
-    if (input.projectId > 0) {
-      query.andWhere("journal.projectId = :projectId", {
-        projectId: input.projectId,
-      });
-    }
-
-    if (input.serviceId > 0) {
-      query.andWhere("journal.serviceId = :serviceId", {
-        serviceId: input.serviceId,
-      });
-    }
-
-    const [transactions, count] = await query
+      })
       .orderBy("journal.id", "DESC")
-      .skip((input.page - 1) * PAGE_SIZE)
-      .take(PAGE_SIZE)
-      .getManyAndCount();
+      .getMany();
+      return result
 
-    const totalPages = Math.ceil(count / PAGE_SIZE);
 
-    return { transactions, count, totalPages };
+   
   }
 
   @catchError

@@ -36,7 +36,8 @@ journalRouter.get(
    "/journals/single/account/result",
   
    async (req: Request, res: Response, next: NextFunction) => {
-      CreateSingleAccountReport.generatePdf(req, res, next);
+    const result=new CreateSingleAccountReport()
+   await result.execute(req, res, next);
    }
  );
 

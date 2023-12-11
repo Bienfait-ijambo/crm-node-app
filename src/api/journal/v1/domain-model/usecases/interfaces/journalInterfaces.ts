@@ -73,13 +73,13 @@ export interface IJournalServiceInput{
 
 
 export interface ITransactionDetailInput{
-    projectId:number
-    serviceId:number
+    // projectId:number
+    // serviceId:number
     userId:number
     startDate:string
     endDate:string
     accountId:number
-    page:number
+    // page:number
 }
 
 /**

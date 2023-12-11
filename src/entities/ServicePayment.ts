@@ -27,7 +27,7 @@ export class ServicePayment {
   })
   status: number;
 
-  @Column({ type: "date"})
+  @Column()
   readonly createdAt?: Date;
 
   @UpdateDateColumn()
@@ -41,13 +41,7 @@ export class ServicePayment {
   @ManyToOne(() => Service, (service) => service.servicePayment)
   service: Service
 
-  constructor(
-    serviceId: number,
-    amount: string,
-    userId: number,
-    status: number,
-    createdAt:Date
-  ) {
+  constructor( serviceId: number, amount: string, userId: number, status: number, createdAt:Date ) {
     this.serviceId = serviceId;
     this.amount = amount;
     this.userId = userId;

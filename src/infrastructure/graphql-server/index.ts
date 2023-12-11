@@ -29,7 +29,7 @@ export const createApolloServer = async (app:Express,dbConnection: DataSource) =
 
   const server = new ApolloServer({
     // cache:new InMemoryLRUCache(),
-    cache:'bounded',
+    // cache:'bounded',
     schema: applyMiddleware(
       schema,
       permissions

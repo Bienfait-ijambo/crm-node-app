@@ -25,7 +25,8 @@ const mysqlConnection: DataSourceOptions = {
   username: process.env.DB_USER,
   password: process.env.DB_PWD,
   database: process.env.DB_NAME,
-  synchronize: process.env.NODE_ENV === 'production' ? false : true,
+  // synchronize: process.env.NODE_ENV === 'production' ? false : true,
+  synchronize:false,
   logging: false,
   entities: [
     User,

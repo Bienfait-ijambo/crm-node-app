@@ -8,7 +8,7 @@ export default async function createDBConnection() {
     logErrorToFile("db-started...", "db-started");
     return db
   } catch (error) {
-    console.log("database error: " + error.message);
-    logErrorToFile("Failed to connect to the DB : ", "db-error-msg");
+    console.log("failed to connect to database : " + error);
+    logErrorToFile( `failed to connect to database ${error.message}`, "db-error-msg");
   }
 }

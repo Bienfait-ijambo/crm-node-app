@@ -1,4 +1,4 @@
-import { UpperCaseFirstLetter } from './util';
+import { UpperCaseFirstLetter } from "./util";
 
 export function dateToIsoString(val: string) {
   const date = new Date(val);
@@ -20,35 +20,32 @@ export function todayDate() {
  */
 export function dateEngToFr(val: string) {
   const date = new Date(val);
-  return date.toLocaleDateString('Fr');
+  return date.toLocaleDateString("Fr");
 }
 
 export function formatDate(date: string) {
-  if (typeof date !== 'object') {
+  if (date !== "" && typeof date !== "undefined") {
     const dateOptions = {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'numeric',
-      day: 'numeric',
+      weekday: "long",
+      year: "numeric",
+      month: "numeric",
+      day: "numeric",
     } as Intl.DateTimeFormatOptions;
-    const formatedDate = new Date(date).toLocaleDateString('Fr', dateOptions);
+    const formatedDate = new Date(date).toLocaleDateString("Fr", dateOptions);
     return UpperCaseFirstLetter(formatedDate);
   } else {
-    return '';
+    return "";
   }
 }
 
-
-export function getDateDifference(startDate:string, endDate:string){
+export function getDateDifference(startDate: string, endDate: string) {
   const date1 = new Date(startDate);
   const date2 = new Date(endDate);
   const diffInMilliseconds = date2.getTime() - date1.getTime();
   const diffInDays = diffInMilliseconds / (1000 * 60 * 60 * 24);
 
-  return diffInDays
-
+  return diffInDays;
 }
-
 
 export function disablePastDate(el: HTMLInputElement) {
   const dtToday = new Date();
@@ -57,8 +54,8 @@ export function disablePastDate(el: HTMLInputElement) {
   const year = dtToday.getFullYear();
 
   // Ensure single-digit month and day are formatted without leading zeros
-  if (month.length === 1) month = '0' + month;
-  if (day.length === 1) day = '0' + day;
+  if (month.length === 1) month = "0" + month;
+  if (day.length === 1) day = "0" + day;
 
   const maxDate = `${year}-${month}-${day}`;
 
@@ -66,21 +63,20 @@ export function disablePastDate(el: HTMLInputElement) {
   // input.setAttribute('min', maxDate);
 
   const input = el as HTMLInputElement;
-  input.setAttribute('min', maxDate);
+  input.setAttribute("min", maxDate);
 }
 
-
-
-export function ISstartDateIsGreaterThanEndDate(startDate:string, endDate:string) {
+export function ISstartDateIsGreaterThanEndDate(
+  startDate: string,
+  endDate: string
+) {
   const date1 = new Date(startDate);
   const date2 = new Date(endDate);
-  
-  return date1.getTime() >date2.getTime() ? true:false 
 
+  return date1.getTime() > date2.getTime() ? true : false;
 }
 
 export function isValidDate(dateString: string): boolean {
-    const date = new Date(dateString);
-    return !isNaN(date.getTime());
-  }
-  
+  const date = new Date(dateString);
+  return !isNaN(date.getTime());
+}

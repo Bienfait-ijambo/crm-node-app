@@ -2,93 +2,79 @@ import { NextFunction, Request, Response } from "express";
 import { getViewPath } from "../../../../../../shared/util/util";
 import { createPdfFile } from "../../../../../common/pdf/CreatePdfFile";
 import { getHtmlContent } from "../../../../../common/pdf/getHtmlContent";
-import { singleAccountResultTestData } from "../test-data/singleAccountTransaction";
 import { ProcessSingleAccountTransaction } from "./helper/processor/processSingleAccountTransactions";
+import { GetUserEnterpriseInfoUseCase } from "../../../../../user/v1/domain-model/usecases/GetUserEnterpiseInfo";
+import { userRepo } from "../../../../../user/v1/repository/TypeormUserRepo";
+import { GetTransactionDetailByAccount } from "../../../domain-model/usecases/GetTransactionDetailByAccount";
+import { journalRepo } from "../../../repository/TypeormJournalRepo";
+import { ITransactionDetailInput } from "../../../domain-model/usecases/interfaces/journalInterfaces";
+import { CreateTransactionDetailByAccountDto } from "../../../domain-model/dto/CreateTransactionDetailByAccountDto";
 
 export class CreateSingleAccountReport {
-  static async generatePdf(req: Request, res: Response, next: NextFunction) {
-    try {
-      //   const {input,journalName} = this.getInput(req);
 
-      const [journalData, htmlContent, headerData] = await Promise.all([
-        // this.getJournalData(input),
-        {},
+  
+  async execute(req: Request, res: Response, next: NextFunction) {
+    try {
+      const input = this.getInput(req);
+
+      const dto = new CreateTransactionDetailByAccountDto(input);
+
+      await dto.validate();
+
+      const [accountTransactions, htmlContent, headerData] = await Promise.all([
+        this.getTransactionDetailByAccount(dto.getInput()),
         getHtmlContent(getViewPath("singleAccountReport.html")),
-        // this.getUserEnterpiseInfo(input.userId)
-        {},
+        this.getUserEnterpiseInfo(input.userId),
       ]);
 
-      const accounT = ProcessSingleAccountTransaction.execute(
-        singleAccountResultTestData
+      const processor = new ProcessSingleAccountTransaction(
+        accountTransactions
       );
 
+      const { transactions, accountSold } = await processor.execute();
+
       const data = {
-        accountData: accounT,
-
-        accountSold: [
-          {
-            debit: {
-              amount: "500 (SD)",
-            },
-            credit: {
-              amount: "500 (",
-            },
-          },
-        ],
-        headerData: {},
-
-        // journalName:journalName
+        accountData: transactions,
+        accountSold: accountSold,
+        headerData: headerData,
       };
 
       const { clientUrl } = await createPdfFile(
         htmlContent,
         data,
-        headerData as any,
+        headerData,
         "singleAccountReport"
       );
 
       res.send({ message: "file created", status: 200, filePath: clientUrl });
     } catch (error) {
-      res
-        .status(422)
-        .send({ message: `error : ${error.message}-${error.stack}` });
+      res.status(422).send({ message: `error : ${error.message}` });
     }
   }
 
-  //   private async getJournalData(input: IJournalReportInput) {
-  //     const usecase = new GetJournalPdfData(journalRepo);
-  //     const result: any[] = await usecase.execute(input);
-  //     const data = this.getJournalTransformData(result);
-  //     return data;
-  //   }
+  private async getTransactionDetailByAccount(input: ITransactionDetailInput) {
+    const usecase = new GetTransactionDetailByAccount(journalRepo);
+    const result = await usecase.execute(input);
+    return result;
+  }
 
-  //   private async getUserEnterpiseInfo(userId: number) {
-  //     const useCase = new GetUserEnterpriseInfoUseCase(userRepo);
-  //     const result = await useCase.execute(userId);
-  //     return result;
-  //   }
+  private async getUserEnterpiseInfo(userId: number) {
+    const useCase = new GetUserEnterpriseInfoUseCase(userRepo);
+    const result = await useCase.execute(userId);
+    return result;
+  }
 
-  //   private getInput(req: Request) {
-  //     const { startDate, endDate, page, userId, projectId, serviceId,journalName } = req.query as any;
+  private getInput(req: Request) {
+    const { startDate, endDate, userId, accountId, page } = req.query as any;
 
-  //     const input = {
-  //       page: parseInt(page),
-  //       userId: parseInt(userId),
-  //       startDate: startDate,
-  //       endDate: endDate,
-  //       projectId: parseInt(projectId),
-  //       serviceId: parseInt(serviceId),
-  //       journalName: journalName,
-  //     } as IJournalReportInput;
+    const input = {
+      userId: parseInt(userId),
+      startDate: startDate,
+      accountId: parseInt(accountId),
+      endDate: endDate,
+      page: page,
+    } as ITransactionDetailInput;
 
-  //     if (parseInt(projectId) > 0) {
-  //       return {input,journalName:`PROJET : ${journalName}`};
-  //     }
-
-  //     if (parseInt(serviceId) > 0) {
-  //       return {input,journalName:`SERVICE : ${journalName}`};
-  //     }
-
-  //     return {input,journalName:''};
-  //   }
+    return input;
+  }
 }

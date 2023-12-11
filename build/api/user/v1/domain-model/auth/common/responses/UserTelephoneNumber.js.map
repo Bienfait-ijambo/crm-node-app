@@ -1,1 +1,0 @@
-{"version":3,"file":"UserTelephoneNumber.js","sourceRoot":"","sources":["../../../../../../../../src/api/user/v1/domain-model/auth/common/responses/UserTelephoneNumber.ts"],"names":[],"mappings":";;;AAAA,wFAA0F;AAE1F,SAAgB,4BAA4B;IACxC,MAAM,GAAG,GAAE,IAAI,qCAAoB,CAAC,oCAAoC,EAAC,GAAG,EAAC,KAAK,EAAC,KAAK,CAAC,CAAA;IACzF,OAAO;QACJ,QAAQ,EAAE,GAAG;KACf,CAAA;AACL,CAAC;AALD,oEAKC"}

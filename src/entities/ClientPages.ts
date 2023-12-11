@@ -24,8 +24,8 @@ export class clientPages  {
     id: number
 
   
-    @Column('json')
-    pageName: JSON
+    @Column()
+    pageName: string
 
 
     @CreateDateColumn()
