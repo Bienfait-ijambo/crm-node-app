@@ -68,11 +68,15 @@ export class ProcessSingleAccountTransaction {
   private createSold() {
     const accountSold = [
       {
+
+        total:0,
         debit: {
-          amount: "",
+          
+          amount: "-------",
         },
         credit: {
-          amount: "",
+          amount: "-------",
+
         },
       },
     ];
@@ -82,14 +86,16 @@ export class ProcessSingleAccountTransaction {
     if (totalDebitAmount > totalCreditAmount) {
       const sold = totalDebitAmount - totalCreditAmount;
       accountSold[0].credit.amount = sold + " (SD)";
-      accountSold[0].debit.amount =  " ";
+      accountSold[0].debit.amount =  "-------";
+      accountSold[0].total=totalDebitAmount
 
     } 
     
     if(totalDebitAmount < totalCreditAmount){
       const sold =   totalCreditAmount-totalDebitAmount;
       accountSold[0].debit.amount = sold + " (SC)";
-      accountSold[0].credit.amount =  " ";
+      accountSold[0].credit.amount =  "-------";
+      accountSold[0].total=totalCreditAmount
     }
 
     return { transactions, accountSold };

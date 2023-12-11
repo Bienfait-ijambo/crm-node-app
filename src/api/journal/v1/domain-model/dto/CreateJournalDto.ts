@@ -53,7 +53,7 @@ export class CreateJournalDto  {
   
    const transCode = this.generateTransCode();
 
-   if(arr[0].serviceId===0 && arr[0].projectId===0) throw new Error('Veuillez selectionner un project ou service !')
+  //  if(arr[0].serviceId===0 && arr[0].projectId===0) throw new Error('Veuillez selectionner un project ou service !')
 
     if(arr[0].description.length >= 5 && arr[0].description.length <= 40){
 
@@ -99,11 +99,7 @@ export class CreateJournalDto  {
 
   
   }
-  protected getTransaction() {
-    const debit = JournalTransactionType.DEBIT;
-    const credit = JournalTransactionType.CREDIT;
-    return { debit: debit, credit: credit };
-  }
+  
 
   public getInsertInput(): IJournalDto[] {
   
@@ -131,9 +127,10 @@ export class CreateJournalDto  {
     for(let i=0; i<arr.length; i++){
       const {createdAt,...restProps}=arr[i];
 
-      if(createdAt!==''){
+      if(createdAt.trim()!==''){
         newArray.push({createdAt,...restProps});
       }else{
+      
         newArray.push({...restProps})
       }
     }
@@ -147,7 +144,8 @@ export class CreateJournalDto  {
   private checkValidTransaction(): { arr: IJournalDto[]; error: number } {
     const arr = this.input;
     let error = 0;
-    const { debit, credit } = this.getTransaction();
+    const debit=JournalTransactionType.DEBIT
+    const credit = JournalTransactionType.CREDIT
 
 
     for (let i = 0; arr.length > i; i++) {
@@ -175,7 +173,7 @@ export class CreateJournalDto  {
   }
 
   private isDebitSoldIsEqualToCredit(arr: IJournalDto[]): boolean {
-    const { debit } = this.getTransaction();
+    const debit=JournalTransactionType.DEBIT
   
 
     const debitTransactions: number[] = [];

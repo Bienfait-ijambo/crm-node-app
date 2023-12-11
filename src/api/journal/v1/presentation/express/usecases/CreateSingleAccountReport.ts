@@ -25,7 +25,7 @@ export class CreateSingleAccountReport {
         this.getTransactionDetailByAccount(dto.getInput()),
         getHtmlContent(getViewPath("singleAccountReport.html")),
         this.getUserEnterpiseInfo(input.userId),
-      ]);
+      ])
 
       const processor = new ProcessSingleAccountTransaction(
         accountTransactions
@@ -37,6 +37,8 @@ export class CreateSingleAccountReport {
         accountData: transactions,
         accountSold: accountSold,
         headerData: headerData,
+        date:input,
+        account:input
       };
 
       const { clientUrl } = await createPdfFile(
@@ -65,13 +67,15 @@ export class CreateSingleAccountReport {
   }
 
   private getInput(req: Request) {
-    const { startDate, endDate, userId, accountId, page } = req.query as any;
+    const { startDate, endDate, userId, accountId, page,accountName,accountCode } = req.query as any;
 
     const input = {
       userId: parseInt(userId),
       startDate: startDate,
-      accountId: parseInt(accountId),
       endDate: endDate,
+      accountId: parseInt(accountId),
+      accountCode:req.query?.accountCode,
+      accountName:accountName,
       page: page,
     } as ITransactionDetailInput;
 

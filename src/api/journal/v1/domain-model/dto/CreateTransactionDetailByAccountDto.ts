@@ -16,10 +16,20 @@ export class CreateTransactionDetailByAccountDto {
   })
   endDate: string;
 
+  @Required({
+    message: "Veuillez entre le nom du compte !",
+  })
+  accountName: string;
+
   @IsNumber({
     message: "Veuillez selectionner un compte",
   })
   accountId: number;
+
+  @Required({
+    message: "Veuillez entre le numero du compte en chiffre",
+  })
+  accountCode: string;
 
   @IsNumber({
     message: "UserId must be a number",
@@ -28,6 +38,8 @@ export class CreateTransactionDetailByAccountDto {
 
   constructor(input: ITransactionDetailInput) {
     this.userId = input.userId;
+    this.accountName=input.accountName;
+    this.accountCode = input.accountCode;
     this.startDate = input.startDate;
     this.endDate = input.endDate;
     this.accountId = input.accountId;
@@ -36,10 +48,11 @@ export class CreateTransactionDetailByAccountDto {
   getInput() {
     return {
       userId: this.userId,
+      accountCode:this.accountCode,
+      accountName:this.accountName,
       startDate: this.startDate,
       endDate: this.endDate,
       accountId: this.accountId,
-      page:undefined
     };
   }
 

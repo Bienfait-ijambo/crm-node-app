@@ -26,13 +26,13 @@ export class CreateAccountUseCase{
 
         if(accountExist!==null) 
         throw new Error('Vous avez déjà enregistré ce compte !')
-        
-         const [accountResult,_]=await Promise.all([
-            this.accountRepo.createAccount(dto.getInput()),
-            this.saveAccountInAggregateTable(result.id,input)
-         ])
+
+        const account= await this.accountRepo.createAccount(dto.getInput())
+
+          await  this.saveAccountInAggregateTable(account.id,input)
+    
          
-         return accountResult
+         return account
        
       })
 

@@ -244,7 +244,7 @@ export class TypeormJournalRepo implements IJournalRepo {
         date1: input.startDate,
         date2: input.endDate,
       })
-      .orderBy("journal.id", "DESC")
+      .orderBy("journal.id", 'ASC')
       .getMany();
       return result
 

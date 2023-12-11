@@ -79,6 +79,8 @@ export interface ITransactionDetailInput{
     startDate:string
     endDate:string
     accountId:number
+    accountName:string 
+    accountCode:string
     // page:number
 }
 

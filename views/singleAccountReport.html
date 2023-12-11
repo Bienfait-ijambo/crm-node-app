@@ -52,7 +52,7 @@
         <hr />
     </div>
     <br />
-    <div id="makeBolder"> Compte :40 Fournisseurs <br />
+    <div id="makeBolder"> Journal Compte :  {{this.account.accountCode}} {{this.account.accountName}} <br />
         Date : {{this.date.startDate}} - {{this.date.endDate}}</div>
 
 
@@ -70,10 +70,10 @@
 
             <td>Libellé</td>
 
-            <td>Montant</td>
+            <td>Montant (USD)</td>
             <td>Date</td>
             <td>Libellé</td>
-            <td>Montant</td>
+            <td>Montant (USD)</td>
 
         </tr>
 
@@ -102,6 +102,20 @@
             </td>
             <td></td>
             <td>{{this.credit.amount}}</td>
+        </tr>
+
+        <tr style="font-weight: bolder;">
+            <td>Total</td>
+            <td></td>
+
+            <td>
+                {{this.total}} USD
+            </td>
+            <td>
+
+            </td>
+            <td></td>
+            <td>{{this.total}} USD</td>
         </tr>
         {{/each}}
     </table>
