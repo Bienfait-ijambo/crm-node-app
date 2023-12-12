@@ -16,10 +16,14 @@ export function todayDate() {
 }
 
 /**
- * covert date to french format
+ * 
+ * @param val 
+ * @input 2023-12-11
+ * @returns output -> 11/12/2023
  */
-export function dateEngToFr(val: string) {
-  const date = new Date(val);
+export function formatDateToFr(str: string) {
+  if(typeof str === 'undefined') return ''
+  const date = new Date(str);
   return date.toLocaleDateString("Fr");
 }
 

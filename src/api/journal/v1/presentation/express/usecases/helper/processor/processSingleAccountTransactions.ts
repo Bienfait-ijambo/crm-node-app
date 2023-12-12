@@ -1,5 +1,5 @@
 import { JournalTransactionType } from "../../../../../../../../entities/Journal";
-import { formatDate } from "../../../../../../../../shared/util/dateUtils";
+import {  formatDateToFr } from "../../../../../../../../shared/util/dateUtils";
 
 export interface ISingleTransaction {
   id: number;
@@ -114,7 +114,7 @@ export class ProcessSingleAccountTransaction {
       totalDebitAmount += this.array[i]?.amount !=='undefined' ?  parseFloat(this.array[i].amount):0;
       transactions.push({
         debit: {
-          date: formatDate(this.array[i]?.createdAt),
+          date: formatDateToFr(this.array[i]?.createdAt),
           description: this.array[i]?.description,
           amount: this.array[i]?.amount,
         },
@@ -132,7 +132,7 @@ export class ProcessSingleAccountTransaction {
       totalCreditAmount += typeof transaction?.amount !=='undefined' ? parseFloat(transaction?.amount):0;
 
       transactions[j].credit = {
-        date: formatDate(transaction?.createdAt),
+        date: formatDateToFr(transaction?.createdAt),
         description: transaction?.description,
         amount: transaction?.amount,
       };
