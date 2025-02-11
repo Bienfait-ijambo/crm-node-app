@@ -34,7 +34,7 @@ export interface IJournalRepo{
 
   getTransactionDetailByAccount(input:ITransactionDetailInput)
 
-   deleteTransaction(input:IDeleteTransaction):Promise<any>
+  deleteTransaction(input:IDeleteTransaction):Promise<any>
 
   /**
    * 

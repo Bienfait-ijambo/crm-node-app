@@ -185,17 +185,17 @@ export class TypeormJournalRepo implements IJournalRepo {
       })
       .andWhere("journal.userId = :userId", { userId: input.userId });
 
-    if (input.projectId > 0) {
-      query.andWhere("journal.projectId = :projectId", {
-        projectId: input.projectId,
-      });
-    }
+    // if (input.projectId > 0) {
+    //   query.andWhere("journal.projectId = :projectId", {
+    //     projectId: input.projectId,
+    //   });
+    // }
 
-    if (input.serviceId > 0) {
-      query.andWhere("journal.serviceId = :serviceId", {
-        serviceId: input.serviceId,
-      });
-    }
+    // if (input.serviceId > 0) {
+    //   query.andWhere("journal.serviceId = :serviceId", {
+    //     serviceId: input.serviceId,
+    //   });
+    // }
 
     const [journals] = await query.getManyAndCount();
 

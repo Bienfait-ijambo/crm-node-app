@@ -74,10 +74,8 @@ export class Journal  {
     @Column()
     userId: number
 
-    @CreateDateColumn({
-      type: 'timestamp',
-    })
-    readonly createdAt?: Date;
+    @CreateDateColumn()
+     createdAt?: Date;
   
     @UpdateDateColumn()
     readonly updatedAt?: Date;
@@ -100,7 +98,7 @@ export class Journal  {
     services: Service[]
 
     constructor(accountId:number,description:string,projectId:number,serviceId:number,amount:string,
-        transactionType:number,income:string,expense:string,draw:boolean,userId:number){
+        transactionType:number,income:string,expense:string,draw:boolean,userId:number,createdAt:Date){
             this.accountId = accountId;
             this.description = description;
             this.projectId = projectId;
@@ -112,6 +110,7 @@ export class Journal  {
             this.expense = expense;
             this.userId = userId
             this.draw=  draw;
+            this.createdAt = createdAt
         
     }
 

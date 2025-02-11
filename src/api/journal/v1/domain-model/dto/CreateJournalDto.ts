@@ -1,4 +1,5 @@
 import { JournalTransactionType } from "../../../../../entities/Journal";
+import { todayDate } from "../../../../../shared/util/dateUtils";
 import { generateCode } from "../../../../../shared/util/util";
 import { isNumber } from "../../../../common/customer-decorators/Number";
 import { IJournalDto } from "./IjournalDto";
@@ -41,21 +42,15 @@ export class CreateJournalDto  {
   protected serviceId: number;
 
 
-
-  
   protected createdAt: string;
 
-
-  //
   public input: IJournalDto[] = [];
 
   constructor(arr: IJournalDto[]) {
   
    const transCode = this.generateTransCode();
 
-  //  if(arr[0].serviceId===0 && arr[0].projectId===0) throw new Error('Veuillez selectionner un project ou service !')
-
-    if(arr[0].description.length >= 5 && arr[0].description.length <= 40){
+    if(arr[0].description.length >= 5 && arr[0].description.length <= 60){
 
       for (let i = 0; arr.length > i; i++) {
         this.accountId = arr[i].accountId;
@@ -127,12 +122,13 @@ export class CreateJournalDto  {
     for(let i=0; i<arr.length; i++){
       const {createdAt,...restProps}=arr[i];
 
-      if(createdAt.trim()!==''){
-        newArray.push({createdAt,...restProps});
-      }else{
-      
-        newArray.push({...restProps})
+      if(createdAt===''){
+        throw new Error('Veuiller selectionner la date')
       }
+
+      newArray.push({createdAt:createdAt.split('/').join('-'),...restProps});
+
+     
     }
     return newArray
   }

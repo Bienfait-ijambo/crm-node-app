@@ -28,7 +28,6 @@ export class RecordTransactionUseCase {
   //  @catchError
   public async execute(journalInput: IJournalDto[]) {
 
-    
   
     const journalDto = new CreateJournalDto(journalInput);
 
